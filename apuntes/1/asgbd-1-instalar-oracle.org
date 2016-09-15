@@ -1,0 +1,81 @@
+#+INCLUDE: "../common/header.org"
+#+TITLE:  Instalación de Oracle
+#+REVEAL_THEME: serif
+
+* Instalación del software de base de datos
+
+** Prerequisitos
+- Será una máquina virtual de VirtualBox
+- El fichero =OVA= del profesor ya tiene:
+  - *CENTOS* instalado (inglés)
+  - *Oracle 12c* descargado
+
+
+** Resolver el propio nombre
+
+- Fichero =/etc/hosts=
+- Hay que añadir el nombre de la máquina en 
+  - =127.0.0.1=
+  - =::1=
+
+** Siguientes pasos
+
+
+1. Ignorar la dirección de /email/ 
+2. Italar sólo el /software/ de la base de DATOS
+3. Elegir /Single instance database/
+4. Idiomas:
+   - Podemos dejar el inglés, o añadir el español
+5. Edición estándar
+
+** Directorio de Oracle
+
+- =/var/oracle=
+- =/var/oraInventory=
+- Es necesario 
+  - Crearlo : =mkdir=
+  - Hacer propietario al usuario =alumno= : =chown=
+- /Software/ en =/var/oracle/product/12.1.0/asir_bbdd=
+
+** Grupos de /Linux/
+
+- Elegir =wheel= 
+  - Es un grupo administrador en *Centos* 
+
+** Comprobaciones
+
+- Se necesita instalar varios paquetes de software
+  - =sudo yum install= /=paquete=/
+  - Es necesario que la máquina virtual tenga acceso a internet (por ejemplo, /NAT/)
+- El instalador detectará algunos errores, pero genera un /script/ de /fix/
+  - Se ejecuta como administrador
+
+** Finalización
+- El instalador pedirá ejecutar varios /scripts/ como =root=
+- Necesitamos definir algunas variables de entorno (fichero =~/.profile=)
+  - =ORACLE_HOME=: =/var/oracle/product/12.1.0/asir_bbdd=
+  - =ORACLE_SID=: =orcl=
+  - Es aconsejable incluir =$ORACLE_HOME/bin= en el =PATH=
+
+* Creación de una instancia de base de datos
+
+- Comando =dbca=
+- No está en el =PATH=
+  - Se puede buscar con =locate=
+  - Para que funcione =locate=, hay que ejecutar previamente =updatedb=
+- Utilizad la configuración típica
+  - Nombre: =asir=
+  - Que no sea una /container database/
+    
+* Creación de un /listener/ 
+- Comando =netca=
+  - Nombre del listener: =LISTENER=
+  - Protocolo /TCP/
+  - Puerto =1521=
+- Comprobar la configuración creada en el fichero =listener.ora=
+
+* Configuración de las conexiones
+- El cliente =sqlplus= utiliza las conexiones definidas en el fichero =tnsnames.ora=
+- Con el comando =netca=
+  - Elegir los nombres locales (/Local net service name configuration/)
+
