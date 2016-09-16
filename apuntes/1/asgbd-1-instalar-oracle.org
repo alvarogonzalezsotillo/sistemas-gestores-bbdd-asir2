@@ -54,7 +54,7 @@
 - El instalador pedirá ejecutar varios /scripts/ como =root=
 - Necesitamos definir algunas variables de entorno (fichero =~/.profile=)
   - =ORACLE_HOME=: =/var/oracle/product/12.1.0/asir_bbdd=
-  - =ORACLE_SID=: =orcl=
+  - =ORACLE_SID=: =asir=
   - Es aconsejable incluir =$ORACLE_HOME/bin= en el =PATH=
 
 * Creación de una instancia de base de datos
@@ -73,9 +73,54 @@
   - Protocolo /TCP/
   - Puerto =1521=
 - Comprobar la configuración creada en el fichero =listener.ora=
+  - Si luego falla, revisar =ADR_BASE_LISTENER=
+
+
+
+* Conexión en local
+  #+BEGIN_SRC sh
+ sqlplus / as sysdba  
+  #+END_SRC
+
+
+
+* Reinicio del servidor
+- Comprobar =/etc/oratab=
+  - Deberá estar configurada para iniciarse con el sistema
+- Comprobar que la interfaz de red se inicia en el arranque
+  - =/etc/sysconfig/network-scripts=
+  - =ONBOOT= debe ser =YES=
 
 * Configuración de las conexiones
-- El cliente =sqlplus= utiliza las conexiones definidas en el fichero =tnsnames.ora=
+- El cliente =sqlplus= utiliza las conexiones definidas en el
+ fichero =tnsnames.ora=
 - Con el comando =netca=
   - Elegir los nombres locales (/Local net service name configuration/)
 
+
+* Conexión remota
+- Es necesario conocer la IP de nuestro servidor
+  - =ifconfig=
+  - =hostname -I=
+- Es necesario que el ordenador cliente pueda acceder al servidor
+  - Tipo de conexión de la máquina virtual
+  - =ping=
+  - /Firewall/: =systemctl disable firewalld
+
+* Instalación de *SQLDeveloper*
+- Se necesita *JDK 1.8*
+  - [[http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-windows-x64.exe]]
+- Simplemente, se descomprime
+
+
+* avahi :noexport:
+- =publish-hinfo= y =publish-workstation=
+- Desactivar el firewal
+
+* Samba :noexport:
+- [[https://www.howtoforge.com/samba-server-installation-and-configuration-on-centos-7]]
+  - =sudo yum install samba samba-client samba-common=
+  - =systemctl enable smb.service=
+  - =systemctl enable nmb.service=
+  - Cambiar el fichero =smb.conf=, el =netbios name=
+    - *Ojo*: máximo 15 caracteres, sin guiones

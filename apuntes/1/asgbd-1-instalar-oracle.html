@@ -1639,7 +1639,7 @@ body {
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Instalación de Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2016-09-15 jue 16:06</p>
+<section id="sec-title-slide"><h1 class="title">Instalación de Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2016-09-16 vie 11:44</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
@@ -1649,6 +1649,11 @@ body {
 <li><a href="#/slide-orgheadline8">1. Instalación del software de base de datos</a></li>
 <li><a href="#/slide-orgheadline9">2. Creación de una instancia de base de datos</a></li>
 <li><a href="#/slide-orgheadline10">3. Creación de un <i>listener</i></a></li>
+<li><a href="#/slide-orgheadline11">4. Reinicio del servidor</a></li>
+<li><a href="#/slide-orgheadline12">5. Configuración de las conexiones</a></li>
+<li><a href="#/slide-orgheadline13">6. Conexión en local</a></li>
+<li><a href="#/slide-orgheadline14">7. Conexión remota</a></li>
+<li><a href="#/slide-orgheadline15">8. Instalación de <b>SQLDeveloper</b></a></li>
 </ul>
 </div>
 </div>
@@ -2099,6 +2104,7 @@ g3qyy9RjAAAAAElFTkSuQmCC" />
 <li>Necesitamos definir algunas variables de entorno (fichero <code>~/.profile</code>)
 <ul>
 <li><code>ORACLE_HOME</code>: <code>/var/oracle/product/12.1.0/asir_bbdd</code></li>
+<li><code>ORACLE_SID</code>: <code>asir</code></li>
 <li>Es aconsejable incluir <code>$ORACLE_HOME/bin</code> en el <code>PATH</code></li>
 
 </ul></li>
@@ -2144,6 +2150,105 @@ g3qyy9RjAAAAAElFTkSuQmCC" />
 <li>Puerto <code>1521</code></li>
 
 </ul></li>
+<li>Comprobar la configuración creada en el fichero <code>listener.ora</code>
+<ul>
+<li>Si luego falla, revisar <code>ADR_BASE_LISTENER</code></li>
+
+</ul></li>
+
+</ul>
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline11">
+<div class="slide-header"></div>
+<h2 id="orgheadline11"><span class="section-number-2">4</span> Reinicio del servidor</h2>
+<ul>
+<li>Comprobar <code>/etc/oratab</code>
+<ul>
+<li>Deberá estar configurada para iniciarse con el sistema</li>
+
+</ul></li>
+<li>Comprobar que la interfaz de red se inicia en el arranque
+<ul>
+<li><code>/etc/sysconfig/network-scripts</code></li>
+<li><code>ONBOOT</code> debe ser <code>YES</code></li>
+
+</ul></li>
+
+</ul>
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline12">
+<div class="slide-header"></div>
+<h2 id="orgheadline12"><span class="section-number-2">5</span> Configuración de las conexiones</h2>
+<ul>
+<li>El cliente <code>sqlplus</code> utiliza las conexiones definidas en el
+fichero <code>tnsnames.ora</code></li>
+<li>Con el comando <code>netca</code>
+<ul>
+<li>Elegir los nombres locales (<i>Local net service name configuration</i>)</li>
+
+</ul></li>
+
+</ul>
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline13">
+<div class="slide-header"></div>
+<h2 id="orgheadline13"><span class="section-number-2">6</span> Conexión en local</h2>
+<div class="org-src-container">
+
+<pre><code class="sh" >sqlplus / as sysdba
+</code></pre>
+</div>
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline14">
+<div class="slide-header"></div>
+<h2 id="orgheadline14"><span class="section-number-2">7</span> Conexión remota</h2>
+<ul>
+<li>Es necesario conocer la IP de nuestro servidor
+<ul>
+<li><code>ifconfig</code></li>
+<li><code>hostname -I</code></li>
+
+</ul></li>
+<li>Es necesario que el ordenador cliente pueda acceder al servidor
+<ul>
+<li>Tipo de conexión de la máquina virtual</li>
+<li><code>ping</code></li>
+<li><i>Firewall</i>: =systemctl disable firewalld</li>
+
+</ul></li>
+
+</ul>
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline15">
+<div class="slide-header"></div>
+<h2 id="orgheadline15"><span class="section-number-2">8</span> Instalación de <b>SQLDeveloper</b></h2>
+<ul>
+<li>Se necesita <b>JDK 1.8</b>
+<ul>
+<li><a href="http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-windows-x64.exe">http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-windows-x64.exe</a></li>
+
+</ul></li>
+<li>Simplemente, se descomprime</li>
 
 </ul>
 <div class="slide-footer"></div>
