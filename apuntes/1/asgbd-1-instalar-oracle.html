@@ -1639,7 +1639,7 @@ body {
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Instalación de Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2016-09-16 vie 11:44</p>
+<section id="sec-title-slide"><h1 class="title">Instalación de Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2016-09-18 dom 00:55</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
@@ -1648,12 +1648,10 @@ body {
 <ul>
 <li><a href="#/slide-orgheadline8">1. Instalación del software de base de datos</a></li>
 <li><a href="#/slide-orgheadline9">2. Creación de una instancia de base de datos</a></li>
-<li><a href="#/slide-orgheadline10">3. Creación de un <i>listener</i></a></li>
-<li><a href="#/slide-orgheadline11">4. Reinicio del servidor</a></li>
-<li><a href="#/slide-orgheadline12">5. Configuración de las conexiones</a></li>
-<li><a href="#/slide-orgheadline13">6. Conexión en local</a></li>
-<li><a href="#/slide-orgheadline14">7. Conexión remota</a></li>
-<li><a href="#/slide-orgheadline15">8. Instalación de <b>SQLDeveloper</b></a></li>
+<li><a href="#/slide-orgheadline10">3. Conexión en local</a></li>
+<li><a href="#/slide-orgheadline11">4. Creación de un <i>listener</i></a></li>
+<li><a href="#/slide-orgheadline13">5. Arrancar y parar la base de datos</a></li>
+<li><a href="#/slide-orgheadline19">6. Conexión remota</a></li>
 </ul>
 </div>
 </div>
@@ -2014,6 +2012,11 @@ g3qyy9RjAAAAAElFTkSuQmCC" />
 <div class="slide-header"></div>
 <h3 id="orgheadline2"><span class="section-number-3">1.2</span> Resolver el propio nombre</h3>
 <ul>
+<li>Cambiar el nombre de la máquina 
+<ul>
+<li>Por ejemplo <code>nombrealumnoASGBD</code></li>
+
+</ul></li>
 <li>Fichero <code>/etc/hosts</code></li>
 <li>Hay que añadir el nombre de la máquina en 
 <ul>
@@ -2021,6 +2024,7 @@ g3qyy9RjAAAAAElFTkSuQmCC" />
 <li><code>::1</code></li>
 
 </ul></li>
+<li>Reiniciar la máquina</li>
 
 </ul>
 
@@ -2028,10 +2032,10 @@ g3qyy9RjAAAAAElFTkSuQmCC" />
 </section>
 <section id="slide-orgheadline3">
 <div class="slide-header"></div>
-<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Siguientes pasos</h3>
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Arrancar el instalador</h3>
 <ol>
 <li>Ignorar la dirección de <i>email</i></li>
-<li>Italar sólo el <i>software</i> de la base de DATOS</li>
+<li>Instalar sólo el <i>software</i> de la base de DATOS</li>
 <li>Elegir <i>Single instance database</i></li>
 <li>Idiomas:
 <ul>
@@ -2141,8 +2145,23 @@ g3qyy9RjAAAAAElFTkSuQmCC" />
 <section>
 <section id="slide-orgheadline10">
 <div class="slide-header"></div>
-<h2 id="orgheadline10"><span class="section-number-2">3</span> Creación de un <i>listener</i></h2>
+<h2 id="orgheadline10"><span class="section-number-2">3</span> Conexión en local</h2>
+<div class="org-src-container">
+
+<pre><code class="sh" >sqlplus / as sysdba
+</code></pre>
+</div>
+
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline11">
+<div class="slide-header"></div>
+<h2 id="orgheadline11"><span class="section-number-2">4</span> Creación de un <i>listener</i></h2>
 <ul>
+<li>Permiten las conexiones de clientes remotos</li>
 <li>Comando <code>netca</code>
 <ul>
 <li>Nombre del listener: <code>LISTENER</code></li>
@@ -2158,13 +2177,50 @@ g3qyy9RjAAAAAElFTkSuQmCC" />
 
 </ul>
 
+
 <div class="slide-footer"></div>
 </section>
 </section>
 <section>
-<section id="slide-orgheadline11">
+<section id="slide-orgheadline13">
 <div class="slide-header"></div>
-<h2 id="orgheadline11"><span class="section-number-2">4</span> Reinicio del servidor</h2>
+<h2 id="orgheadline13"><span class="section-number-2">5</span> Arrancar y parar la base de datos</h2>
+<ul>
+<li>Arrancar la base de datos</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="sh" >dbstart $ORACLE_HOME
+</code></pre>
+</div>
+
+<ul>
+<li>Parar la base de datos</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="sh" >dbshut $ORACLE_HOME
+</code></pre>
+</div>
+
+<ul>
+<li>Comprobar que se admiten conexiones</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="sh" >lsnrctl status
+</code></pre>
+</div>
+
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline12">
+<div class="slide-header"></div>
+<h3 id="orgheadline12"><span class="section-number-3">5.1</span> Reinicio del servidor</h3>
 <ul>
 <li>Comprobar <code>/etc/oratab</code>
 <ul>
@@ -2180,44 +2236,14 @@ g3qyy9RjAAAAAElFTkSuQmCC" />
 
 </ul>
 
-<div class="slide-footer"></div>
-</section>
-</section>
-<section>
-<section id="slide-orgheadline12">
-<div class="slide-header"></div>
-<h2 id="orgheadline12"><span class="section-number-2">5</span> Configuración de las conexiones</h2>
-<ul>
-<li>El cliente <code>sqlplus</code> utiliza las conexiones definidas en el
-fichero <code>tnsnames.ora</code></li>
-<li>Con el comando <code>netca</code>
-<ul>
-<li>Elegir los nombres locales (<i>Local net service name configuration</i>)</li>
-
-</ul></li>
-
-</ul>
 
 <div class="slide-footer"></div>
 </section>
 </section>
 <section>
-<section id="slide-orgheadline13">
+<section id="slide-orgheadline19">
 <div class="slide-header"></div>
-<h2 id="orgheadline13"><span class="section-number-2">6</span> Conexión en local</h2>
-<div class="org-src-container">
-
-<pre><code class="sh" >sqlplus / as sysdba
-</code></pre>
-</div>
-
-<div class="slide-footer"></div>
-</section>
-</section>
-<section>
-<section id="slide-orgheadline14">
-<div class="slide-header"></div>
-<h2 id="orgheadline14"><span class="section-number-2">7</span> Conexión remota</h2>
+<h2 id="orgheadline19"><span class="section-number-2">6</span> Conexión remota</h2>
 <ul>
 <li>Es necesario conocer la IP de nuestro servidor
 <ul>
@@ -2235,13 +2261,50 @@ fichero <code>tnsnames.ora</code></li>
 
 </ul>
 
+
 <div class="slide-footer"></div>
 </section>
+<section id="slide-orgheadline14">
+<div class="slide-header"></div>
+<h3 id="orgheadline14"><span class="section-number-3">6.1</span> Configuración de las conexiones (<b>sqlplus</b>)</h3>
+<ul>
+<li>El cliente <code>sqlplus</code> utiliza las conexiones definidas en el
+fichero <code>tnsnames.ora</code></li>
+<li>Con el comando <code>netca</code>
+<ul>
+<li>Elegir los nombres locales (<i>Local net service name configuration</i>)</li>
+
+</ul></li>
+
+</ul>
+
+
+<div class="slide-footer"></div>
 </section>
-<section>
 <section id="slide-orgheadline15">
 <div class="slide-header"></div>
-<h2 id="orgheadline15"><span class="section-number-2">8</span> Instalación de <b>SQLDeveloper</b></h2>
+<h3 id="orgheadline15"><span class="section-number-3">6.2</span> Acceso via Web</h3>
+<ul>
+<li>Al crear la base de datos con <code>dbca</code> se configura el acceso <b>Enterprise Manager</b>
+<ul>
+<li>URL <code>https://</code> <b><code>nombre-o-ip</code></b> <code>:5500/em/</code></li>
+
+</ul></li>
+<li>Tenemos <b>IP</b> dinámica, por lo que debemos configurar una resolución por nombre 
+<ul>
+<li><b>DNS</b> es complicado</li>
+<li>Usaremos <b>avahi</b> entre linux, y <b>samba</b> entre linux y windows</li>
+
+</ul></li>
+
+</ul>
+
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline18">
+<div class="slide-header"></div>
+<h3 id="orgheadline18"><span class="section-number-3">6.3</span> Instalación de <b>SQLDeveloper</b></h3>
 <ul>
 <li>Se necesita <b>JDK 1.8</b>
 <ul>
@@ -2249,6 +2312,43 @@ fichero <code>tnsnames.ora</code></li>
 
 </ul></li>
 <li>Simplemente, se descomprime</li>
+
+</ul>
+
+
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline16">
+<div class="slide-header"></div>
+<h4 id="orgheadline16"><span class="section-number-4">6.3.1</span> avahi</h4>
+<ul>
+<li>Instalar <code>avahi</code> y <code>avahi-tools</code></li>
+<li>Activar opciones <code>publish-hinfo</code> y <code>publish-workstation</code></li>
+<li>Desactivar el firewal</li>
+<li>Importante: el nombre afecta al fichero <code>listener.ora</code></li>
+
+</ul>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline17">
+<div class="slide-header"></div>
+<h4 id="orgheadline17"><span class="section-number-4">6.3.2</span> Samba</h4>
+<ul>
+<li><a href="https://www.howtoforge.com/samba-server-installation-and-configuration-on-centos-7">https://www.howtoforge.com/samba-server-installation-and-configuration-on-centos-7</a>
+<ul>
+<li><code>sudo yum install samba samba-client samba-common</code></li>
+<li><code>systemctl enable smb.service</code></li>
+<li><code>systemctl enable nmb.service</code></li>
+<li>Cambiar el fichero <code>smb.conf</code>, el <code>netbios name</code>
+<ul>
+<li><b>Ojo</b>: máximo 15 caracteres, sin guiones</li>
+
+</ul></li>
+
+</ul></li>
+<li>Importante: el nombre afecta al fichero <code>listener.ora</code></li>
 
 </ul>
 <div class="slide-footer"></div>
