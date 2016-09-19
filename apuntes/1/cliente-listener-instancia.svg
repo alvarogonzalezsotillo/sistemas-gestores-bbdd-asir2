@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="cliente-listener-instancia.svg">
+   sodipodi:docname="cliente-listener-instancia.svg"
+   inkscape:export-filename="/home/alvaro/SincronizadoCloud/MEGASync/2016-2017-Rosa-Chacel/sistemas-gestores-bd/apuntes/1/cliente-listener-instancia.png"
+   inkscape:export-xdpi="250"
+   inkscape:export-ydpi="250">
   <defs
      id="defs4">
     <marker
@@ -85,6 +88,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -166,10 +170,10 @@
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
        transform="translate(109.14648,448.66448)"
-       inkscape:connection-start="#g4866"
-       inkscape:connection-start-point="d4"
+       inkscape:connection-end-point="d4"
        inkscape:connection-end="#g4866-7"
-       inkscape:connection-end-point="d4" />
+       inkscape:connection-start-point="d4"
+       inkscape:connection-start="#g4866" />
     <g
        id="g4866"
        transform="translate(-127.4228,17.363328)">
