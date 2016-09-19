@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="cliente-listener-instancia-complejo.svg">
+   sodipodi:docname="cliente-listener-instancia-complejo.svg"
+   inkscape:export-filename="/home/alvaro/SincronizadoCloud/MEGASync/2016-2017-Rosa-Chacel/sistemas-gestores-bd/apuntes/1/cliente-listener-instancia-complejo.png"
+   inkscape:export-xdpi="250"
+   inkscape:export-ydpi="250">
   <defs
      id="defs4">
     <marker
@@ -85,7 +88,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -162,7 +165,7 @@
        inkscape:connection-start-point="d4" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend);display:inline"
-       d="M 31.30707,-101.78813 95.010601,-82.6932"
+       d="M 34.8426,-98.571515 92.355383,-82.6932"
        id="path3424"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="0"
@@ -173,7 +176,9 @@
        inkscape:connection-end-point="d4" />
     <g
        id="g4866"
-       transform="translate(-132.97864,-35.164605)">
+       transform="translate(-129.44311,-31.123995)"
+       inkscape:export-xdpi="250"
+       inkscape:export-ydpi="250">
       <flowRoot
          transform="translate(78.163152,-88.787984)"
          style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"

@@ -156,3 +156,30 @@ lsnrctl status
   - Cambiar el fichero =smb.conf=, el =netbios name=
     - *Ojo*: máximo 15 caracteres, sin guiones
 - Importante: el nombre afecta al fichero =listener.ora=
+
+* Instancia / /listener/ / base de datos
+- Instancia: 
+  - Varios procesos funcionando
+  - Permite manipular *una* o *varias* base de datos (En /Oracle/ solo una)
+
+- Base de datos 
+  - Varios *ficheros*
+  - Contienen datos, índices, esquema,...
+
+- Listener
+  - Proceso que admite *conexiones* de clientes
+  - En otros SGBD (/MySQL/) la instancia es su propio /listener/
+  - Conecta los clientes con la instancia pedida
+
+** Instancias y bases de DATOS
+
+[[file:diagrama-instancias-bbdd.png]]
+
+** Ejemplo (I) de listener
+
+[[file:cliente-listener-instancia.png]]
+
+
+** Ejemplo (II) de listener
+
+[[file:cliente-listener-instancia-complejo.png]]

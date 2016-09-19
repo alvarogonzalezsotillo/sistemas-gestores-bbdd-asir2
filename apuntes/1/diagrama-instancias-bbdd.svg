@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="diagrama-instancias-bbdd.svg">
+   sodipodi:docname="diagrama-instancias-bbdd.svg"
+   inkscape:export-filename="/home/alvaro/SincronizadoCloud/MEGASync/2016-2017-Rosa-Chacel/sistemas-gestores-bd/apuntes/1/diagrama-instancias-bbdd.png"
+   inkscape:export-xdpi="250"
+   inkscape:export-ydpi="250">
   <defs
      id="defs4">
     <clipPath
@@ -57,6 +60,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
