@@ -87,7 +87,7 @@ sqlplus / as sysdba
   - Puerto =1521=
 - Comprobar la configuración creada en el fichero =listener.ora=
   - Si luego falla, revisar =ADR_BASE_LISTENER=
-
+    
 
 * Arrancar y parar la base de datos
 
@@ -190,3 +190,6 @@ lsnrctl status
 [[file:cliente-listener-instancia-complejo.png]]
 
 
+
+
+Paz
