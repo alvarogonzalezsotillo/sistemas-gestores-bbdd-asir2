@@ -2,6 +2,11 @@
 #+TITLE:  Instalación de Oracle
 #+REVEAL_THEME: serif
 
+
+
+
+
+
 * Instalación del software de base de datos
 
 ** Prerequisitos
@@ -183,3 +188,5 @@ lsnrctl status
 ** Ejemplo (II) de listener
 
 [[file:cliente-listener-instancia-complejo.png]]
+
+
