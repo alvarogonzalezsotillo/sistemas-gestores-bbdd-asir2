@@ -192,4 +192,4 @@ lsnrctl status
 
 
 
-Paz
+
