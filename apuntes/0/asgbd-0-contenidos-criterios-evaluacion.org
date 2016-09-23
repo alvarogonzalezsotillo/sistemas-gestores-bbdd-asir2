@@ -88,6 +88,185 @@ La mayor de:
 
 
 
+* Temas del libro de referencia
+
+** Instalación y configuración de MySQL
+   - El SGBD MySQL
+     - Funciones de MySQL
+     - Arquitectura de MySQL
+   - Instalación desde el gestor de paquetes yum
+     - Comprobar la instalación correcta a través de yum
+   - Instalación compilando el código fuente 
+   - Instalación de una versión 5.1 de MySQL a través del código fuente
+     - Arranque del servidor MySQL 
+     - Configuración del autoarranque del servidor MySQL
+     - Incorporación de las herramientas clientes al PATH 
+     - Configuración del lenguaje de los mensajes SGBD
+   - Instalación de una versión 5.6 de MySQL desde código fuente 
+   - Configuración de la seguridad post-instalación 
+   - Ficheros Log en MySQL
+     - El log de errores
+     - El log general de consultas
+     - El registro de consultas lentas 
+     - El log binario
+   - Instalación de phpMyAdmin 
+   - Prácticas
+** Acceso a la información en MySQL
+   - El acceso a la información 
+   - Creación de usuarios
+     - Los nombres de cuenta
+     - Borrado de usuarios 
+     - Modificación de usuarios
+   - Los privilegios
+     - El sistema de privilegios de MySQL 
+     - Gestión de permisos con phpMyAdmin
+     - Uso de conexiones cifradas mediante SSL
+   - El catálogo de metadatos de MySQL 
+   - Las vistas 
+   - Prácticas
+** Automatización de tareas en MySQL. Scripts de administración
+   - Los scripts o guiones 
+   - Script SQL en MySQL
+     - Ejecución de scripts SQL en MySQL
+   - Scripts de Sistema Operativo para el DBA de MySQL 
+   - Server Side Scripting. Otro tipo de scripts
+   - Herramientas gráficas para scripts. MySQL Workbench
+     - Creación automática de scripts SQL con MySQL Workbench
+     - Creación automática de scripts de servidor Python con MySQLWorkbench
+   - Métodos de ejecución de scripts
+     - Elección del método de ejecución adecuado
+   - Scripts para el DBA
+     - Los scripts y las notificaciones a través del correo electrónico
+     - Scripts para backups 
+     - Scripts de mantenimiento 
+     - Scripts para Logs
+   - Prácticas
+** Tuning de MySQL
+   - Introducción al tuning de bases de datos
+     - ¿Cómo se optimiza MySQL Server?
+   - Elementos susceptibles de ser optimizados
+     - El motor de almacenamiento 
+     - El software 
+     - La caché y la tasa de aciertos
+     - Los buffers 
+     - La red 
+     - Plantillas de parámetros preconfiguradas
+   - El planificador. Análisis de consultas
+     - Las consultas lentas. SLOW QUERY LOG
+   - Los índices
+     - El script mysqlisxchk 
+     - El comando ANALYZE TABLE
+   - La fragmentación de la tablas
+     - El comando OPTIMIZE TABLE
+   - El script mysqltuner 
+   - Consejos para optimizar 
+   - Prácticas
+** Bases de datos Distribuidas y Replicadas con MySQL
+   - SGBD distribuidos
+     - Componentes de una BBDD distribuida
+   - Creación de bases de datos distribuidas: MySQL Cluster 
+   - Instalación de un cluster MySQL 
+   - Mantenimiento y gestión de un cluster MySQL
+     - Control de un nodo de gestión 
+     - Parada y arranque de un nodo 
+     - Control de un nodo SQL 
+     - Control de un nodo de datos
+   - La replicación de los datos 
+   - Configuración de la replicación en MySQL 
+   - Herramientas de gestión: MySQL Monitor
+     - Descarga de MySQL Monitor Service Manager y sus agentes 
+     - Instalación y configuración del Service Manager 
+     - Puesta en marcha del Service Manager 
+     - Instalación y configuración de los agentes
+   - Prácticas
+** Instalación y configuración de Oracle
+   - Funciones de Oracle
+   - Instalación y configuración de Oracle
+     - Prerrequisitos de la instalación de Oracle 
+     - El asistente para la instalación de Oracle 
+     - La postinstalación
+   - Puesta en marcha: Un poco de arquitectura
+     - Estructura de una instancia en Oracle 
+     - Configuración manual de la instancia 
+     - Creación de la base de datos 
+     - Estados de una instancia 
+     - Ficheros que componen la base de datos
+   - Configuración de la red: El listener
+     - El fichero tnsnames
+   - Apagado de una base de datos 
+   - Configuración automática de la instancia a través del asistente DBCA 
+   - Prácticas
+** Estructura de la información y acceso en Oracle
+
+   - Los métodos de autentificación en Oracle 
+   - La gestión de los usuarios en Oracle
+     - El sistema de privilegios de Oracle 
+     - El fichero de passwords orapwd
+   - Los roles 
+   - Los perfiles 
+   - Gestión del espacio de almacenamiento
+   - Sentencias SQL para la gestión de almacenamiento
+   - El catálogo de metadatos
+     - Las vistas estáticas 
+     - Las vistas dinámicas
+   - Oracle Enterprise Manager Database Control
+     - El servicio dbconsole
+   - Prácticas
+** Automatización de tareas y creación de scripts en Oracle
+   - Herramientas para creación de scripts
+     - Herramientas de texto
+   - Planificación de tareas de administración con scripts 
+   - Scripts en BASH para Oracle
+     - Script para inicio y parada automática de Oracle 
+     - Arranque de más de una instancia 
+     - Ejemplo de script avanzado
+   - Scripts para backups
+     - Ejemplo de script para backup físico en frío 
+     - Scripts para backups lógicos. El datapump
+   - El Recovery Manager (rman)
+     - Funcionamiento de rman 
+     - Instalación del catálogo de recuperación de rman 
+     - Scripts con RMAN. Backups y Restores 
+     - Script para backup completo con rman
+     - Consulta de los backups disponibles 
+     - Script con RMAN para recuperación
+   - Eventos de sistema 
+   - Excepciones servererror
+   - Prácticas
+** Tuning en Oracle
+   - Herramientas de monitorización de Oracle
+     - Consolas gráficas: Enterprise Manager, Grid Control, Toad
+     - Vistas dinámicas
+     - dbms_monitor 
+     - La traza 10046: alter session, oradebug, sql_trace 
+     - Informes AWR
+   - Elementos y parámetros susceptibles de ser monitorizados
+     - Caso práctico 1 
+     - Caso práctico 2
+   - Optimización en Oracle
+     - Instancia 
+     - Recursos 
+     - Estadísticas 
+     - Particionamiento y paralelización 
+     - Consultas
+   - Herramientas y sentencias para la gestión de índices 
+   - Herramientas para la creación de alertas de rendimiento
+   - Prácticas
+** Oracle y las BBDD distribuidas
+   - Bases de datos e instancias distribuidas en Oracle 
+   - Técnicas de fragmentación 
+   - Consultas distribuidas
+     - DB Links
+     - Ejecución de consultas distribuidas
+   - Transacciones distribuidas
+     - TWO-PHASE COMMIT 
+     - Ejemplo de transacción distribuida
+   - Optimización de consultas sobre bases de datos distribuidas
+     - Optimización mediante consultas derivadas 
+     - Optimización mediante hints
+   - Prácticas
+
+
 * Contenidos
 
 - Decreto 12/2010, de 18 de marzo
@@ -125,18 +304,18 @@ La mayor de:
 - Herramientas de monitorización disponibles en el sistema gestor.
 - Elementos y parámetros susceptibles de ser monitorizados.
 - Optimización:
-  + Espacio de almacenamiento.
-  + Procesos.
-  + Uso de memoria.
+ + Espacio de almacenamiento.
+ + Procesos.
+ + Uso de memoria.
 - Optimización de consultas: plan de ejecución.
 - Herramientas y sentencias para la gestión de índices.
 - Herramientas para la creación de alertas de rendimiento.
 ** Operaciones de mantenimiento y recuperación de errores
 - Arranque y parada de la BD.
 - Copias de seguridad:
-  + Lógicas vs. físicas.
-  + En frío vs. en caliente.
-  + Totales, incrementales, acumulativas.
+ + Lógicas vs. físicas.
+ + En frío vs. en caliente.
+ + Totales, incrementales, acumulativas.
 - Herramientas gráficas y utilidades proporcionadas por el sistema gestor para la realización de copias de seguridad.
 - Sentencias para la realización y recuperación de copias de seguridad.
 - Recuperación de la BD a partir de copias de seguridad.
@@ -264,7 +443,7 @@ La mayor de:
 - Optimización de consultas sobre bases de datos distribuidas.
 - Replicación.
 - Configuración del «nodo maestro» y los «nodos esclavos».
-* Orientaciones pedagógicas.                                      :noexport:
+* Orientaciones pedagógicas.                   :noexport:
 Este módulo profesional contiene la formación necesaria para desempeñar la función de administrar sistemas gestores de bases de datos.
 La administración de sistemas gestores de base de datos incluye aspectos como:
 - La implantación de sistemas gestores de bases de datos.

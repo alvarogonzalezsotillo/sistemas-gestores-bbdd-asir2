@@ -1639,7 +1639,7 @@ body {
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">ADMINISTRACIÓN DE SISTEMAS GESTORES DE BASES DE DATOS</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2016-09-14 mié 22:08</p>
+<section id="sec-title-slide"><h1 class="title">ADMINISTRACIÓN DE SISTEMAS GESTORES DE BASES DE DATOS</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2016-09-23 vie 20:08</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
@@ -1651,9 +1651,10 @@ body {
 <li><a href="#/slide-orgheadline4">3. Entrega de Trabajos</a></li>
 <li><a href="#/slide-orgheadline6">4. Normas</a></li>
 <li><a href="#/slide-orgheadline8">5. Cómo será la evaluación</a></li>
-<li><a href="#/slide-orgheadline16">6. Contenidos</a></li>
-<li><a href="#/slide-orgheadline23">7. Criterios de evaluación</a></li>
-<li><a href="#/slide-orgheadline29">8. Contenidos básicos</a></li>
+<li><a href="#/slide-orgheadline19">6. Temas del libro de referencia</a></li>
+<li><a href="#/slide-orgheadline27">7. Contenidos</a></li>
+<li><a href="#/slide-orgheadline34">8. Criterios de evaluación</a></li>
+<li><a href="#/slide-orgheadline40">9. Contenidos básicos</a></li>
 </ul>
 </div>
 </div>
@@ -2787,9 +2788,365 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </section>
 </section>
 <section>
+<section id="slide-orgheadline19">
+<div class="slide-header"></div>
+<h2 id="orgheadline19"><span class="section-number-2">6</span> Temas del libro de referencia</h2>
+<div class="outline-text-2" id="text-6">
+</div><div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline9">
+<div class="slide-header"></div>
+<h3 id="orgheadline9"><span class="section-number-3">6.1</span> Instalación y configuración de MySQL</h3>
+<ul>
+<li>El SGBD MySQL
+<ul>
+<li>Funciones de MySQL</li>
+<li>Arquitectura de MySQL</li>
+
+</ul></li>
+<li>Instalación desde el gestor de paquetes yum
+<ul>
+<li>Comprobar la instalación correcta a través de yum</li>
+
+</ul></li>
+<li>Instalación compilando el código fuente</li>
+<li>Instalación de una versión 5.1 de MySQL a través del código fuente
+<ul>
+<li>Arranque del servidor MySQL</li>
+<li>Configuración del autoarranque del servidor MySQL</li>
+<li>Incorporación de las herramientas clientes al PATH</li>
+<li>Configuración del lenguaje de los mensajes SGBD</li>
+
+</ul></li>
+<li>Instalación de una versión 5.6 de MySQL desde código fuente</li>
+<li>Configuración de la seguridad post-instalación</li>
+<li>Ficheros Log en MySQL
+<ul>
+<li>El log de errores</li>
+<li>El log general de consultas</li>
+<li>El registro de consultas lentas</li>
+<li>El log binario</li>
+
+</ul></li>
+<li>Instalación de phpMyAdmin</li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline10">
+<div class="slide-header"></div>
+<h3 id="orgheadline10"><span class="section-number-3">6.2</span> Acceso a la información en MySQL</h3>
+<ul>
+<li>El acceso a la información</li>
+<li>Creación de usuarios
+<ul>
+<li>Los nombres de cuenta</li>
+<li>Borrado de usuarios</li>
+<li>Modificación de usuarios</li>
+
+</ul></li>
+<li>Los privilegios
+<ul>
+<li>El sistema de privilegios de MySQL</li>
+<li>Gestión de permisos con phpMyAdmin</li>
+<li>Uso de conexiones cifradas mediante SSL</li>
+
+</ul></li>
+<li>El catálogo de metadatos de MySQL</li>
+<li>Las vistas</li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline11">
+<div class="slide-header"></div>
+<h3 id="orgheadline11"><span class="section-number-3">6.3</span> Automatización de tareas en MySQL. Scripts de administración</h3>
+<ul>
+<li>Los scripts o guiones</li>
+<li>Script SQL en MySQL
+<ul>
+<li>Ejecución de scripts SQL en MySQL</li>
+
+</ul></li>
+<li>Scripts de Sistema Operativo para el DBA de MySQL</li>
+<li>Server Side Scripting. Otro tipo de scripts</li>
+<li>Herramientas gráficas para scripts. MySQL Workbench
+<ul>
+<li>Creación automática de scripts SQL con MySQL Workbench</li>
+<li>Creación automática de scripts de servidor Python con MySQLWorkbench</li>
+
+</ul></li>
+<li>Métodos de ejecución de scripts
+<ul>
+<li>Elección del método de ejecución adecuado</li>
+
+</ul></li>
+<li>Scripts para el DBA
+<ul>
+<li>Los scripts y las notificaciones a través del correo electrónico</li>
+<li>Scripts para backups</li>
+<li>Scripts de mantenimiento</li>
+<li>Scripts para Logs</li>
+
+</ul></li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline12">
+<div class="slide-header"></div>
+<h3 id="orgheadline12"><span class="section-number-3">6.4</span> Tuning de MySQL</h3>
+<ul>
+<li>Introducción al tuning de bases de datos
+<ul>
+<li>¿Cómo se optimiza MySQL Server?</li>
+
+</ul></li>
+<li>Elementos susceptibles de ser optimizados
+<ul>
+<li>El motor de almacenamiento</li>
+<li>El software</li>
+<li>La caché y la tasa de aciertos</li>
+<li>Los buffers</li>
+<li>La red</li>
+<li>Plantillas de parámetros preconfiguradas</li>
+
+</ul></li>
+<li>El planificador. Análisis de consultas
+<ul>
+<li>Las consultas lentas. SLOW QUERY LOG</li>
+
+</ul></li>
+<li>Los índices
+<ul>
+<li>El script mysqlisxchk</li>
+<li>El comando ANALYZE TABLE</li>
+
+</ul></li>
+<li>La fragmentación de la tablas
+<ul>
+<li>El comando OPTIMIZE TABLE</li>
+
+</ul></li>
+<li>El script mysqltuner</li>
+<li>Consejos para optimizar</li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline13">
+<div class="slide-header"></div>
+<h3 id="orgheadline13"><span class="section-number-3">6.5</span> Bases de datos Distribuidas y Replicadas con MySQL</h3>
+<ul>
+<li>SGBD distribuidos
+<ul>
+<li>Componentes de una BBDD distribuida</li>
+
+</ul></li>
+<li>Creación de bases de datos distribuidas: MySQL Cluster</li>
+<li>Instalación de un cluster MySQL</li>
+<li>Mantenimiento y gestión de un cluster MySQL
+<ul>
+<li>Control de un nodo de gestión</li>
+<li>Parada y arranque de un nodo</li>
+<li>Control de un nodo SQL</li>
+<li>Control de un nodo de datos</li>
+
+</ul></li>
+<li>La replicación de los datos</li>
+<li>Configuración de la replicación en MySQL</li>
+<li>Herramientas de gestión: MySQL Monitor
+<ul>
+<li>Descarga de MySQL Monitor Service Manager y sus agentes</li>
+<li>Instalación y configuración del Service Manager</li>
+<li>Puesta en marcha del Service Manager</li>
+<li>Instalación y configuración de los agentes</li>
+
+</ul></li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline14">
+<div class="slide-header"></div>
+<h3 id="orgheadline14"><span class="section-number-3">6.6</span> Instalación y configuración de Oracle</h3>
+<ul>
+<li>Funciones de Oracle</li>
+<li>Instalación y configuración de Oracle
+<ul>
+<li>Prerrequisitos de la instalación de Oracle</li>
+<li>El asistente para la instalación de Oracle</li>
+<li>La postinstalación</li>
+
+</ul></li>
+<li>Puesta en marcha: Un poco de arquitectura
+<ul>
+<li>Estructura de una instancia en Oracle</li>
+<li>Configuración manual de la instancia</li>
+<li>Creación de la base de datos</li>
+<li>Estados de una instancia</li>
+<li>Ficheros que componen la base de datos</li>
+
+</ul></li>
+<li>Configuración de la red: El listener
+<ul>
+<li>El fichero tnsnames</li>
+
+</ul></li>
+<li>Apagado de una base de datos</li>
+<li>Configuración automática de la instancia a través del asistente DBCA</li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline15">
+<div class="slide-header"></div>
+<h3 id="orgheadline15"><span class="section-number-3">6.7</span> Estructura de la información y acceso en Oracle</h3>
+<ul>
+<li>Los métodos de autentificación en Oracle</li>
+<li>La gestión de los usuarios en Oracle
+<ul>
+<li>El sistema de privilegios de Oracle</li>
+<li>El fichero de passwords orapwd</li>
+
+</ul></li>
+<li>Los roles</li>
+<li>Los perfiles</li>
+<li>Gestión del espacio de almacenamiento</li>
+<li>Sentencias SQL para la gestión de almacenamiento</li>
+<li>El catálogo de metadatos
+<ul>
+<li>Las vistas estáticas</li>
+<li>Las vistas dinámicas</li>
+
+</ul></li>
+<li>Oracle Enterprise Manager Database Control
+<ul>
+<li>El servicio dbconsole</li>
+
+</ul></li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
 <section id="slide-orgheadline16">
 <div class="slide-header"></div>
-<h2 id="orgheadline16"><span class="section-number-2">6</span> Contenidos</h2>
+<h3 id="orgheadline16"><span class="section-number-3">6.8</span> Automatización de tareas y creación de scripts en Oracle</h3>
+<ul>
+<li>Herramientas para creación de scripts
+<ul>
+<li>Herramientas de texto</li>
+
+</ul></li>
+<li>Planificación de tareas de administración con scripts</li>
+<li>Scripts en BASH para Oracle
+<ul>
+<li>Script para inicio y parada automática de Oracle</li>
+<li>Arranque de más de una instancia</li>
+<li>Ejemplo de script avanzado</li>
+
+</ul></li>
+<li>Scripts para backups
+<ul>
+<li>Ejemplo de script para backup físico en frío</li>
+<li>Scripts para backups lógicos. El datapump</li>
+
+</ul></li>
+<li>El Recovery Manager (rman)
+<ul>
+<li>Funcionamiento de rman</li>
+<li>Instalación del catálogo de recuperación de rman</li>
+<li>Scripts con RMAN. Backups y Restores</li>
+<li>Script para backup completo con rman</li>
+<li>Consulta de los backups disponibles</li>
+<li>Script con RMAN para recuperación</li>
+
+</ul></li>
+<li>Eventos de sistema</li>
+<li>Excepciones servererror</li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline17">
+<div class="slide-header"></div>
+<h3 id="orgheadline17"><span class="section-number-3">6.9</span> Tuning en Oracle</h3>
+<ul>
+<li>Herramientas de monitorización de Oracle
+<ul>
+<li>Consolas gráficas: Enterprise Manager, Grid Control, Toad</li>
+<li>Vistas dinámicas</li>
+<li>dbms<sub>monitor</sub></li>
+<li>La traza 10046: alter session, oradebug, sql<sub>trace</sub></li>
+<li>Informes AWR</li>
+
+</ul></li>
+<li>Elementos y parámetros susceptibles de ser monitorizados
+<ul>
+<li>Caso práctico 1</li>
+<li>Caso práctico 2</li>
+
+</ul></li>
+<li>Optimización en Oracle
+<ul>
+<li>Instancia</li>
+<li>Recursos</li>
+<li>Estadísticas</li>
+<li>Particionamiento y paralelización</li>
+<li>Consultas</li>
+
+</ul></li>
+<li>Herramientas y sentencias para la gestión de índices</li>
+<li>Herramientas para la creación de alertas de rendimiento</li>
+<li>Prácticas</li>
+
+</ul>
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgheadline18">
+<div class="slide-header"></div>
+<h3 id="orgheadline18"><span class="section-number-3">6.10</span> Oracle y las BBDD distribuidas</h3>
+<ul>
+<li>Bases de datos e instancias distribuidas en Oracle</li>
+<li>Técnicas de fragmentación</li>
+<li>Consultas distribuidas
+<ul>
+<li>DB Links</li>
+<li>Ejecución de consultas distribuidas</li>
+
+</ul></li>
+<li>Transacciones distribuidas
+<ul>
+<li>TWO-PHASE COMMIT</li>
+<li>Ejemplo de transacción distribuida</li>
+
+</ul></li>
+<li>Optimización de consultas sobre bases de datos distribuidas
+<ul>
+<li>Optimización mediante consultas derivadas</li>
+<li>Optimización mediante hints</li>
+
+</ul></li>
+<li>Prácticas</li>
+
+</ul>
+
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline27">
+<div class="slide-header"></div>
+<h2 id="orgheadline27"><span class="section-number-2">7</span> Contenidos</h2>
 <ul>
 <li>Decreto 12/2010, de 18 de marzo</li>
 
@@ -2797,9 +3154,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline9">
+<section id="slide-orgheadline20">
 <div class="slide-header"></div>
-<h3 id="orgheadline9"><span class="section-number-3">6.1</span> Instalación y configuración de un sistema gestor de base de datos</h3>
+<h3 id="orgheadline20"><span class="section-number-3">7.1</span> Instalación y configuración de un sistema gestor de base de datos</h3>
 <ul>
 <li>Funciones del sistema gestor de base de datos (SGBD). Componentes. Tipos.</li>
 <li>Arquitectura del sistema gestor de base de datos. Arquitectura ANSI/SPARC.</li>
@@ -2817,9 +3174,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline10">
+<section id="slide-orgheadline21">
 <div class="slide-header"></div>
-<h3 id="orgheadline10"><span class="section-number-3">6.2</span> Acceso a la información</h3>
+<h3 id="orgheadline21"><span class="section-number-3">7.2</span> Acceso a la información</h3>
 <ul>
 <li>Tipos de objetos de la BD.</li>
 <li>Creación, modificación y eliminación de vistas.</li>
@@ -2833,9 +3190,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline11">
+<section id="slide-orgheadline22">
 <div class="slide-header"></div>
-<h3 id="orgheadline11"><span class="section-number-3">6.3</span> Automatización de tareas: construcción de guiones de administración</h3>
+<h3 id="orgheadline22"><span class="section-number-3">7.3</span> Automatización de tareas: construcción de guiones de administración</h3>
 <ul>
 <li>Herramientas para la creación de guiones; procedimientos de ejecución.</li>
 <li>Planificación de tareas administrativas mediante guiones.</li>
@@ -2847,9 +3204,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline12">
+<section id="slide-orgheadline23">
 <div class="slide-header"></div>
-<h3 id="orgheadline12"><span class="section-number-3">6.4</span> Optimización del rendimiento: monitorización y optimización</h3>
+<h3 id="orgheadline23"><span class="section-number-3">7.4</span> Optimización del rendimiento: monitorización y optimización</h3>
 <ul>
 <li>Herramientas de monitorización disponibles en el sistema gestor.</li>
 <li>Elementos y parámetros susceptibles de ser monitorizados.</li>
@@ -2867,9 +3224,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline13">
+<section id="slide-orgheadline24">
 <div class="slide-header"></div>
-<h3 id="orgheadline13"><span class="section-number-3">6.5</span> Operaciones de mantenimiento y recuperación de errores</h3>
+<h3 id="orgheadline24"><span class="section-number-3">7.5</span> Operaciones de mantenimiento y recuperación de errores</h3>
 <ul>
 <li>Arranque y parada de la BD.</li>
 <li>Copias de seguridad:
@@ -2888,9 +3245,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline14">
+<section id="slide-orgheadline25">
 <div class="slide-header"></div>
-<h3 id="orgheadline14"><span class="section-number-3">6.6</span> Aplicación de criterios de disponibilidad a bases de datos distribuidas y replicadas</h3>
+<h3 id="orgheadline25"><span class="section-number-3">7.6</span> Aplicación de criterios de disponibilidad a bases de datos distribuidas y replicadas</h3>
 <ul>
 <li>Bases de datos distribuidas: objetivo.</li>
 <li>Tipos de SGBD distribuidos.</li>
@@ -2906,9 +3263,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline15">
+<section id="slide-orgheadline26">
 <div class="slide-header"></div>
-<h3 id="orgheadline15"><span class="section-number-3">6.7</span> Protección de datos y confidencialidad</h3>
+<h3 id="orgheadline26"><span class="section-number-3">7.7</span> Protección de datos y confidencialidad</h3>
 <ul>
 <li>Legislación vigente en materia de protección de datos.</li>
 <li>Monitorización de la actividad de los usuarios del SGBD. Auditoría: sesiones, sentencias, objetos…</li>
@@ -2921,15 +3278,15 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </section>
 </section>
 <section>
-<section id="slide-orgheadline23">
+<section id="slide-orgheadline34">
 <div class="slide-header"></div>
-<h2 id="orgheadline23"><span class="section-number-2">7</span> Criterios de evaluación</h2>
-<div class="outline-text-2" id="text-7">
+<h2 id="orgheadline34"><span class="section-number-2">8</span> Criterios de evaluación</h2>
+<div class="outline-text-2" id="text-8">
 </div><div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline17">
+<section id="slide-orgheadline28">
 <div class="slide-header"></div>
-<h3 id="orgheadline17"><span class="section-number-3">7.1</span> Implanta sistemas gestores de bases de datos analizando sus características y ajustándose a los requerimientos del sistema.</h3>
+<h3 id="orgheadline28"><span class="section-number-3">8.1</span> Implanta sistemas gestores de bases de datos analizando sus características y ajustándose a los requerimientos del sistema.</h3>
 <ul>
 <li>Se ha reconocido la utilidad y función de cada uno de los elementos de un sistema gestor de bases de datos.</li>
 <li>Se han analizado las características de los principales sistemas gestores de bases de datos.</li>
@@ -2947,9 +3304,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline18">
+<section id="slide-orgheadline29">
 <div class="slide-header"></div>
-<h3 id="orgheadline18"><span class="section-number-3">7.2</span> Configura el sistema gestor de bases de datos interpretando las especificaciones técnicas y los requisitos de explotación.</h3>
+<h3 id="orgheadline29"><span class="section-number-3">8.2</span> Configura el sistema gestor de bases de datos interpretando las especificaciones técnicas y los requisitos de explotación.</h3>
 <ul>
 <li>Se han descrito las condiciones de inicio y parada del sistema gestor.</li>
 <li>Se ha seleccionado el motor de base de datos.</li>
@@ -2964,9 +3321,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline19">
+<section id="slide-orgheadline30">
 <div class="slide-header"></div>
-<h3 id="orgheadline19"><span class="section-number-3">7.3</span> Implanta métodos de control de acceso utilizando asistentes, herramientas gráficas y comandos del lenguaje del sistema gestor.</h3>
+<h3 id="orgheadline30"><span class="section-number-3">8.3</span> Implanta métodos de control de acceso utilizando asistentes, herramientas gráficas y comandos del lenguaje del sistema gestor.</h3>
 <ul>
 <li>Se han creado vistas personalizadas para cada tipo de usuario.</li>
 <li>Se han creado sinónimos de tablas y vistas.</li>
@@ -2980,9 +3337,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline20">
+<section id="slide-orgheadline31">
 <div class="slide-header"></div>
-<h3 id="orgheadline20"><span class="section-number-3">7.4</span> Automatiza tareas de administración del gestor describiéndolas y utilizando guiones de sentencias.</h3>
+<h3 id="orgheadline31"><span class="section-number-3">8.4</span> Automatiza tareas de administración del gestor describiéndolas y utilizando guiones de sentencias.</h3>
 <ul>
 <li>Se ha reconocido la importancia de automatizar tareas administrativas.</li>
 <li>Se han descrito los distintos métodos de ejecución de guiones.</li>
@@ -2996,9 +3353,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline21">
+<section id="slide-orgheadline32">
 <div class="slide-header"></div>
-<h3 id="orgheadline21"><span class="section-number-3">7.5</span> Optimiza el rendimiento del sistema aplicando técnicas de monitorización y realizando adaptaciones.</h3>
+<h3 id="orgheadline32"><span class="section-number-3">8.5</span> Optimiza el rendimiento del sistema aplicando técnicas de monitorización y realizando adaptaciones.</h3>
 <ul>
 <li>Se han identificado las herramientas de monitorización disponibles para el sistema gestor.</li>
 <li>Se han descrito las ventajas e inconvenientes de la creación de índices.</li>
@@ -3012,9 +3369,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline22">
+<section id="slide-orgheadline33">
 <div class="slide-header"></div>
-<h3 id="orgheadline22"><span class="section-number-3">7.6</span> Aplica criterios de disponibilidad analizándolos y ajustando la configuración del sistema gestor.</h3>
+<h3 id="orgheadline33"><span class="section-number-3">8.6</span> Aplica criterios de disponibilidad analizándolos y ajustando la configuración del sistema gestor.</h3>
 <ul>
 <li>Se ha reconocido la utilidad de las bases de datos distribuidas.</li>
 <li>Se han descrito las distintas políticas de fragmentación de la información.</li>
@@ -3030,9 +3387,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </section>
 </section>
 <section>
-<section id="slide-orgheadline29">
+<section id="slide-orgheadline40">
 <div class="slide-header"></div>
-<h2 id="orgheadline29"><span class="section-number-2">8</span> Contenidos básicos</h2>
+<h2 id="orgheadline40"><span class="section-number-2">9</span> Contenidos básicos</h2>
 <ul>
 <li>Incluídos solo como referencia</li>
 <li>No son aplicables en la Comunidad de Madrid</li>
@@ -3040,9 +3397,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline24">
+<section id="slide-orgheadline35">
 <div class="slide-header"></div>
-<h3 id="orgheadline24"><span class="section-number-3">8.1</span> Instalación y configuración de un sistema gestor de base de datos:</h3>
+<h3 id="orgheadline35"><span class="section-number-3">9.1</span> Instalación y configuración de un sistema gestor de base de datos:</h3>
 <ul>
 <li>Funciones del sistema gestor de base de datos (SGBD). Componentes. Tipos.</li>
 <li>Arquitectura del sistema gestor de base de datos. Arquitectura ANSI/SPARC.</li>
@@ -3056,9 +3413,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline25">
+<section id="slide-orgheadline36">
 <div class="slide-header"></div>
-<h3 id="orgheadline25"><span class="section-number-3">8.2</span> Acceso a la información:</h3>
+<h3 id="orgheadline36"><span class="section-number-3">9.2</span> Acceso a la información:</h3>
 <ul>
 <li>Creación, modificación y eliminación de vistas.</li>
 <li>Creación y eliminación de usuarios.</li>
@@ -3069,9 +3426,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline26">
+<section id="slide-orgheadline37">
 <div class="slide-header"></div>
-<h3 id="orgheadline26"><span class="section-number-3">8.3</span> Automatización de tareas: construcción de guiones de administración:</h3>
+<h3 id="orgheadline37"><span class="section-number-3">9.3</span> Automatización de tareas: construcción de guiones de administración:</h3>
 <ul>
 <li>Herramientas para creación de guiones; procedimientos de ejecución.</li>
 <li>Planificación de tareas de administración mediante guiones.</li>
@@ -3082,9 +3439,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline27">
+<section id="slide-orgheadline38">
 <div class="slide-header"></div>
-<h3 id="orgheadline27"><span class="section-number-3">8.4</span> Optimización del rendimiento: monitorización y optimización:</h3>
+<h3 id="orgheadline38"><span class="section-number-3">9.4</span> Optimización del rendimiento: monitorización y optimización:</h3>
 <ul>
 <li>Herramientas de monitorización disponibles en el sistema gestor.</li>
 <li>Elementos y parámetros susceptibles de ser monitorizados.</li>
@@ -3095,9 +3452,9 @@ u/Laq6+/AhussMMSW6yxxwIVEAA7" />
 </ul>
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgheadline28">
+<section id="slide-orgheadline39">
 <div class="slide-header"></div>
-<h3 id="orgheadline28"><span class="section-number-3">8.5</span> Aplicación de criterios de disponibilidad a bases de datos distribuidas y replicadas:</h3>
+<h3 id="orgheadline39"><span class="section-number-3">9.5</span> Aplicación de criterios de disponibilidad a bases de datos distribuidas y replicadas:</h3>
 <ul>
 <li>Bases de datos distribuidas.</li>
 <li>Tipos de SGBD distribuidos.</li>
