@@ -120,9 +120,9 @@ lsnrctl status
   - =ifconfig=
   - =hostname -I=
 - Es necesario que el ordenador cliente pueda acceder al servidor
-  - Tipo de conexión de la máquina virtual
+  - Tipo de conexión de la máquina virtual: mejor /bridged/
   - =ping=
-  - /Firewall/: =systemctl disable firewalld
+  - /Firewall/: =systemctl disable firewalld=
 
 
 ** Configuración de las conexiones (*sqlplus*)
@@ -142,16 +142,29 @@ lsnrctl status
 
 ** Instalación de *SQLDeveloper*
 - Se necesita *JDK 1.8*
-  - [[http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-windows-x64.exe]]
-- Simplemente, se descomprime
+- Se instalan los ficheros =sqldeveloper-4.1.5.21.78-1.noarch.rpm= y =jdk-8u111-linux-x64.rpm=
+  - http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+  - http://www.oracle.com/technetwork/es/developer-tools/sql-developer/downloads/index.html
+- Arracar =sqldeveloper= desde la consola
+  - Preguntará por el directorio de instalación del JDK
 
-
+*** Conexión remota
+- Es necesario conocer la IP o el nombre del ordenador remoto
+- Si nos fiamos de =DHCP=, cada día puede ser una IP distinta
+- Es mejor usar un *nombre*
+  - DNS: muy difícil
+  - Nombres netbios de Windows
+  - Nombres zeroconf/avahi de Linux/Mac (*preferido*)
 
 *** avahi 
 - Instalar =avahi= y =avahi-tools=
 - Activar opciones =publish-hinfo= y =publish-workstation=
 - Desactivar el firewal
 - Importante: el nombre afecta al fichero =listener.ora=
+- El nombre de red será el que tengamos más =.local=
+  - Por ejemplo, =centosprofe.local=
+- Con esto un windows puede econtrar a un linux
+  - Para que Linux encuentre a otro linux, hay que cambiar =/etc/nsswitch.conf=
 
 *** Samba 
 - [[https://www.howtoforge.com/samba-server-installation-and-configuration-on-centos-7]]
@@ -161,6 +174,8 @@ lsnrctl status
   - Cambiar el fichero =smb.conf=, el =netbios name=
     - *Ojo*: máximo 15 caracteres, sin guiones
 - Importante: el nombre afecta al fichero =listener.ora=
+
+
 
 * Instancia / /listener/ / base de datos
 - Instancia: 
