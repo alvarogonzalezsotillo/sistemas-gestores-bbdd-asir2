@@ -1,0 +1,84 @@
+\input{../common/plantilla-ejercicio.tex}
+\usepackage{eurosym}
+
+
+
+
+
+\renewcommand{\hmwkTitle}{Conexión remota con \textbf{SQLDeveloper}}
+
+
+\usepackage{blindtext}
+
+\begin{document}
+
+% \maketitle
+
+% ----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+% ----------------------------------------------------------------------------------------
+
+% \setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+\primerapagina
+
+\setlength{\parindent}{2em}
+\setlength{\parskip}{1em}
+
+\section{Objetivo de la práctica}
+En esta práctica utilizaremos a la base de datos \textbf{Oracle} como un verdadero servidor, conectándonos desde otros ordenadores. Para ello:
+\begin{itemize}
+\item Necesitamos poner accesible por red nuestro servidor
+\item Crearemos un usuario para cada compañero de clase
+\item Dejaremos que esos usuarios puedan ver las tablas del ejemplo de \textbf{multas}, pero solo podrán cambiar un campo de una de las tablas
+\end{itemize}
+
+\begin{homeworkProblem}[: Poner Oracle disponible por red]
+
+
+
+  Los demás compañeros deben poder acceder a nuestro servidor de \textbf{Oracle}. Para ello
+  \begin{enumerate}
+  \item La máquina virtual debe ser accedida desde el resto del aula. El tipo de conexión será \textit{bridged}
+  \item \textbf{Centos} tiene activado un firewall. Hay que desactivarlo como se indica en
+    \begin{itemize}
+    \item  \url{https://www.liquidweb.com/kb/how-to-stop-and-disable-firewalld-on-centos-7/}
+    \end{itemize}
+    
+  \item La dirección IP se asigna actualmente por DHCP. Esto es un inconveniente porque puede variar cada día. Es mejor utilizar un nombre, así que instalaremos \textbf{avahi}
+    \begin{itemize}
+    \item \url{https://en.wikipedia.org/wiki/Avahi\_(software)}
+    \item \texttt{sudo yum install avahi avahi-tools}
+      
+    \item Tu ordenador será accesible con el nombre \texttt{nombre-de-host.local}
+    \end{itemize}
+
+    
+  \end{enumerate}
+
+  Cuando tengas estos cambios, pide al profesor que compruebe que funcionan.
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[: Crear usuarios para tus compañeros]
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[: Dar acceso a otros usuarios a un campo de tus tablas]
+
+\end{homeworkProblem}
+
+
+\section{Instrucciones de entrega}
+\begin{itemize}
+\item El ejercicio se realizará y entregará de manera individual.
+  \begin{itemize}
+  \item Solo se admiten trabajos en pareja, si en clase es necesario compartir ordenador.
+  \end{itemize}
+\item Entrega tu trabajo en formato \textbf{doc}, \textbf{docx}, \textbf{odt} o \textbf{pdf}.
+\item Sube el documento a \enlace{http://aulavirtual2.educa.madrid.org/course/category.php?id=2724}{la tarea correspondiente en el aula virtual}
+\item Presta atención al plazo de entrega (con fecha y hora).
+  
+\end{itemize}
+\end{document}
