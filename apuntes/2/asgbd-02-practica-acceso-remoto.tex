@@ -62,10 +62,56 @@ En esta práctica utilizaremos a la base de datos \textbf{Oracle} como un verdad
 
 \begin{homeworkProblem}[: Crear usuarios para tus compañeros]
 
+  Crea un usuario para cada uno de tus compañeros, y uno para el profesor. La contraseña inicial será la misma que el nombre.
+  \begin{itemize}
+  \item LEONARDO
+  \item SEBASTIAN
+  \item SERGIO
+  \item CARLOS
+  \item INES
+  \item ALEJANDRO
+  \item JAVIER
+  \item DAVID
+  \item ENRIQUE
+  \item NATHALIA
+  \item PROFESOR  
+  \end{itemize}
+  
+  {\small \textbf{Nota}: Son muchos usuarios, así que es aconsejable utilizar un \textit{script} en vez de crearlos manualmente.}
+
+  Los usuarios necesitarán el rol \texttt{connect}. Cuando tengas listos los usuarios:
+  \begin{enumerate}
+  \item Pide al profesor que compruebe su usuario
+  \item Pide a algunos compañeros que comprueben su usuario
+  \end{enumerate}
 \end{homeworkProblem}
 
 
 \begin{homeworkProblem}[: Dar acceso a otros usuarios a un campo de tus tablas]
+  Cambia la contraseña de tu usuario, para que ningún compañero pueda utilizarlo (con \texttt{ALTER USER}). Después, importa en tu usuario las tablas del fichero \enlace{https://alvarogonzalezsotillo.github.io/sistemas-gestores-bbdd-asir2/apuntes/2/sql/multas.sql}{multas.sql}.
+
+  Tras la importación, haz que las tablas puedan ser leidas por todos los usuarios
+  \begin{itemize}
+  \item Haz que el resto de usuarios pueda realizar \texttt{SELECT} sobre tus tablas.  
+  \item Crea sinónimos en todos los usuarios para que puedan acceder a tus tablas sin problemas
+    \begin{itemize}
+    \item Por ejemplo, el usuario profesor debería poder ejecutar \texttt{SELECT * FROM MULTAS}, puesto que habrás creado un sinónimo del tipo \texttt{CREATE PUBLIC SYNONYM MULTAS FOR \textit{MIUSUARIO}.MULTAS}.
+    \end{itemize}
+  \end{itemize}
+
+  Después, haz que puedan escribir en un campo de la tabla \texttt{MULTAS}:
+  \begin{itemize}
+  \item Crea un nuevo campo en la tabla \texttt{MULTAS}: \texttt{PAGADO}, de tipo \texttt{NUMBER(1,0)}. Tendrá el valor \texttt{1} si la multa ha sido pagada, y \texttt{0} en caso contrario (cláusula \texttt{DEFAULT} y \texttt{CHECK})
+    
+  \item Da permisos al resto de usuarios para poder escribir en este campo, con una orden \texttt{GRANT}
+    \begin{itemize}
+    \item \enlace{http://stackoverflow.com/questions/14462353/grant-alter-on-only-one-column-in-table}{http://stackoverflow.com/questions/14462353/grant-alter-on-only-one-column-in-table}
+    \end{itemize}
+    
+  \item Pide al profesor que compruebe que funciona.
+
+  \end{itemize}
+  
 
 \end{homeworkProblem}
 
