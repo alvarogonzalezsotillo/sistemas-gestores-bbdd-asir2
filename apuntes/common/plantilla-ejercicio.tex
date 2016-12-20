@@ -266,14 +266,14 @@ subject={#1}]
 {\textcolor{blue}{\codigo{#2}}}
 }
 
-\newcommand{\adjuntardoc}[2]{
-\textattachfile[mimetype=text/plain,
-color={0 0 0},
-description={#1},
-subject={#1}]
-{#1}
-{\textcolor{blue}{#2}}
-}
+\newcommand{\adjuntardoc}[2]{%
+\textattachfile[mimetype=text/plain,%
+color={0 0 0},%
+description={#1},%
+subject={#1}]%
+{#1}%
+{\textcolor{blue}{#2}}%
+}%
 
 
 \newcommand{\plantilladeclase}[2]{
