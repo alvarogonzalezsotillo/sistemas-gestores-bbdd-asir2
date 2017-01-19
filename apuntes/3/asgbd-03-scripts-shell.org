@@ -1,0 +1,101 @@
+#+include: "../common/header.org"
+#+Title: Scripts de shell para Oracle
+#+REVEAL_THEME: simple
+#+EXCLUDE_TAGS: no_export
+
+
+* Introducción
+- Muchas tareas del mantenimiento de una base de datos *Oracle* se llevan a cabo desde la línea de comandos
+- Por tanto, pueden automatizarse
+  - Arranque y parada
+  - Extracción de datos
+  - Copia de seguridad de datos
+  - Restauración de datos
+
+
+* Prerrequisitos
+
+- Los comandos de *Oracle* necesitan conocer a qué instancia hacen referencia
+- Para ello, necesitan las variables de entorno =ORACLE_HOME= y =ORACLE_SID=.
+- También es conveniente añadir los comandos de *Oracle* al /path/
+- El siguiente /script/ puede utilizarse para tener estas variables (ejecutándolo con =source=)
+
+#+begin_src shell
+#!/bin/sh 
+ORACLE_HOME=/var/oracle/product/12.1.0/asir_bbdd
+ORACLE_SID=asir
+PATH=$ORACLE_HOME/bin:$PATH
+export ORACLE_HOME
+export PATH
+export ORACLE_SID
+#+end_src
+
+* Ejecución de *SQL* desde la /shell/
+- El comando =sqlplus= 
+
+
+* Arranque y parada
+
+
+** =dbstart= y =/etc/oratab=
+- *Oracle* proporciona el /script/ =dbstart= para arrancar instancias de base de datos
+- Se guía por el contenido de =/etc/oratab=
+- Por alguna razón, 
+  - no levanta el /listener/ :(
+  - no hace =startup open=, así que no se registra en el /listener/ :( 
+  - Se puede modificar el /script/ para que lo haga
+
+#+begin_src shell
+# This file is used by ORACLE utilities.  It is created by root.sh
+# and updated by either Database Configuration Assistant while creating
+# a database or ASM Configuration Assistant while creating ASM instance.
+
+# A colon, ':', is used as the field terminator.  A new line terminates
+# the entry.  Lines beginning with a pound sign, '#', are comments.
+#
+# Entries are of the form:
+#   $ORACLE_SID:$ORACLE_HOME:<N|Y>:
+#
+# The first and second fields are the system identifier and home
+# directory of the database respectively.  The third field indicates
+# to the dbstart utility that the database should , "Y", or should not,
+# "N", be brought up at system boot time.
+#
+# Multiple entries with the same $ORACLE_SID are not allowed.
+#
+#
+asir:/var/oracle/product/12.1.0/asir_bbdd:Y
+#+end_src
+Fichero =/etc/oratab=
+
+** Ejecutar *Oracle* al iniciar el sistema
+- Cada sitema operativo tiene sus formas de arrancar servicios/demonios al inicio
+  - *Windows*: Servicios
+  - *Linux*:
+    - *systemd*: Ficheros en el directorio =/etc/systemd/system=. Se controla con la orden =systemctl=
+    - *rc init*: Se basaba en /scripts/ en los directorios =/etc/rc.*=. Se está reemplazando por *systemd*
+
+** *systemd*
+- Los servicios se crean con ficheros en =/etc/systemd/system=
+#+begin_src shell
+[Unit]
+Description=Oracle
+After=network.target
+
+[Service]
+Type=simple
+User=alumno
+ExecStart=/var/oracle/product/12.1.0/asir_bbdd/bin/dbstart /var/oracle/product/12.1.0/asir_bbdd
+
+
+[Install]
+WantedBy=multi-user.target
+#+end_src
+
+
+
+* /Backups/ periódicos
+
+* Restauración
+
+
