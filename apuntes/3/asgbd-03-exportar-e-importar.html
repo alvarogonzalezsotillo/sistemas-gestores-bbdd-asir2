@@ -1668,33 +1668,33 @@ body {
 <div class="creditos"><img src="../common/background.png"><a href="mailto:alvaro.gonzalezsotillo@educa.madrid.org">alvaro.gonzalezsotillo@educa.madrid.org</a></div>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Exportar e importar datos de Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-01-16 lun 21:35</p>
+<section id="sec-title-slide"><h1 class="title">Exportar e importar datos de Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-01-19 jue 12:59</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-orgb1cb35c">1. Introducción</a></li>
-<li><a href="#/slide-orge592f29">2. Exportar datos</a></li>
-<li><a href="#/slide-org79a9805">3. Importar datos</a></li>
+<li><a href="#/slide-org2927fee">1. Introducción</a></li>
+<li><a href="#/slide-org9d1c72f">2. Exportar datos</a></li>
+<li><a href="#/slide-org8beeba3">3. Importar datos</a></li>
 </ul>
 </div>
 </div>
 </section>
 
 <section>
-<section id="slide-orgb1cb35c">
+<section id="slide-org2927fee">
 <div class="slide-header"></div>
-<h2 id="orgb1cb35c"><span class="section-number-2">1</span> Introducción</h2>
+<h2 id="org2927fee"><span class="section-number-2">1</span> Introducción</h2>
 
 <div class="slide-footer"></div>
 </section>
 </section>
 <section>
-<section id="slide-orge592f29">
+<section id="slide-org9d1c72f">
 <div class="slide-header"></div>
-<h2 id="orge592f29"><span class="section-number-2">2</span> Exportar datos</h2>
+<h2 id="org9d1c72f"><span class="section-number-2">2</span> Exportar datos</h2>
 <ul>
 <li>Se utiliza el comando <code>expdp</code>
 <ul>
@@ -1943,9 +1943,9 @@ Valid keyword values are: IMMEDIATE.
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org61b7243">
+<section id="slide-org42bd1ca">
 <div class="slide-header"></div>
-<h3 id="org61b7243"><span class="section-number-3">2.1</span> Ejemplo de exportación</h3>
+<h3 id="org42bd1ca"><span class="section-number-3">2.1</span> Ejemplo de exportación</h3>
 <div class="org-src-container">
 
 <pre><code class="shell" >[alumno@centos-asgbd ~]$ expdp alumno/alumno directory=mi_directorio_de_backup schemas=alumno dumpfile=alumno.dmp logfile=alumno.log
@@ -1982,9 +1982,9 @@ Job "ALUMNO"."SYS_EXPORT_SCHEMA_01" successfully completed at Fri Dec 16 13:08:0
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org8b82c8b">
+<section id="slide-org648a506">
 <div class="slide-header"></div>
-<h3 id="org8b82c8b"><span class="section-number-3">2.2</span> Definir un directorio</h3>
+<h3 id="org648a506"><span class="section-number-3">2.2</span> Definir un directorio</h3>
 <div class="org-src-container">
 
 <pre><code class="sql" >grant create any directory to myschema; 
@@ -1997,13 +1997,13 @@ create directory mi_directorio_de_backup as '/home/alumno/backups';
 </section>
 </section>
 <section>
-<section id="slide-org79a9805">
+<section id="slide-org8beeba3">
 <div class="slide-header"></div>
-<h2 id="org79a9805"><span class="section-number-2">3</span> Importar datos</h2>
+<h2 id="org8beeba3"><span class="section-number-2">3</span> Importar datos</h2>
 <ul>
 <li>Se utiliza el comando <code>impdp</code>
 <ul>
-<li>Ayuda con <code>expdp help=yes</code></li>
+<li>Ayuda con <code>impdb help=yes</code></li>
 
 </ul></li>
 
@@ -2261,9 +2261,9 @@ Valid keywords are: IMMEDIATE.
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgf846bfe">
+<section id="slide-org3573c7c">
 <div class="slide-header"></div>
-<h3 id="orgf846bfe"><span class="section-number-3">3.1</span> Importar un <code>schema</code> en otro <code>schema</code></h3>
+<h3 id="org3573c7c"><span class="section-number-3">3.1</span> Importar un <code>schema</code> en otro <code>schema</code></h3>
 <ul>
 <li>Importar un fichero del usuario <code>profesor</code> en el usuario <code>alumno</code></li>
 
