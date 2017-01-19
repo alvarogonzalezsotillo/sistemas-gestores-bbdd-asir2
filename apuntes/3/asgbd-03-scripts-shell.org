@@ -11,6 +11,7 @@
   - Extracción de datos
   - Copia de seguridad de datos
   - Restauración de datos
+- Para ello, se utilizan las facilidades de ejecución del sistema operativo aprendidas en otros módulos
 
 
 * Prerrequisitos
@@ -31,10 +32,76 @@ export ORACLE_SID
 #+end_src
 
 * Ejecución de *SQL* desde la /shell/
-- El comando =sqlplus= 
+- El comando =sqlplus=  puede ejecutarse desde la shell
+- Lee las órdenes SQL desde la entrada estándar.
+  - Se puede redirigir de un fichero
+  - Se puede usar un /heredoc/
+
+** Ejemplo /heredoc/
+#+begin_src shell
+sqlplus -S alumno/alumno &lt;&lt;HEREDOC
+set  autocommit off
+create table prueba(un_atributo int);
+insert into prueba values(1);
+insert into prueba values(2);
+select * from prueba;
+rollback;
+HEREDOC
+#+end_src
+
+** Consultas a fichero 
+
+- Puede enviarse la salida a un fichero
+
+#+begin_src shell
+sqlplus -S alumno/alumno &lt;&lt;HEREDOC
+set  autocommit off
+insert into prueba values(1);
+insert into prueba values(2);
+spool prueba.txt
+select * from prueba;
+spool off
+rollback;
+HEREDOC
+
+less prueba.txt
+#+end_src
+
+** Formateo básico de la salida 
+
+- Tiene algunas facilidades para formatear la salida (por ejemplo, para generar ficheros *CSV*)
+#+begin_src shell
+sqlplus -S sys/alumno as sysdba &lt;&lt;HEREDOC
+set colsep ','    -- separate columns with a comma
+set pagesize 0    -- No header rows
+set trimspool on  -- remove trailing blanks
+set headsep off   -- this may or may not be useful...depends on your headings.
+set linesize 1000 -- X should be the sum of the column widths
 
 
-* Arranque y parada
+spool tablas.csv
+
+select table_name, tablespace_name 
+  from all_tables
+ where owner = 'SYS'
+   and tablespace_name is not null;
+
+spool off
+HEREDOC
+#+end_src
+
+** /Scripts/ *SQL* para =sqlplus=                                
+
+- =sqlplus= también puede leer scripts de =SQL= con *=@=*
+
+#+begin_src shell
+sqlplus -S sys/alumno as sysdba &lt;&lt;HEREDOC
+@/camino/al/fichero.sql
+HEREDOC
+#+end_src
+
+
+* Arranque y parada 
 
 
 ** =dbstart= y =/etc/oratab=
@@ -66,7 +133,8 @@ export ORACLE_SID
 #
 asir:/var/oracle/product/12.1.0/asir_bbdd:Y
 #+end_src
-Fichero =/etc/oratab=
+
+
 
 ** Ejecutar *Oracle* al iniciar el sistema
 - Cada sitema operativo tiene sus formas de arrancar servicios/demonios al inicio
@@ -77,6 +145,10 @@ Fichero =/etc/oratab=
 
 ** *systemd*
 - Los servicios se crean con ficheros en =/etc/systemd/system=
+  - Dependen de otros servicios (=After=)
+  - Otros servicios dependen de ellos (=WantedBy=)
+  - Se puede elegir el usuario que lo lanza (=User=)
+
 #+begin_src shell
 [Unit]
 Description=Oracle
@@ -85,17 +157,45 @@ After=network.target
 [Service]
 Type=simple
 User=alumno
-ExecStart=/var/oracle/product/12.1.0/asir_bbdd/bin/dbstart /var/oracle/product/12.1.0/asir_bbdd
+ExecStart=/home/alumno/oracle-al-inicio.sh
+ExecStop=/home/alumno/oracle-al-final.sh
 
 
 [Install]
 WantedBy=multi-user.target
 #+end_src
 
+Más información con =man systemd.service=
+
+#+reveal: split
+
+- Habilitar/Deshabilitar un servicio al inicio del sistema
+#+begin_src shell
+systemctl enable SERVICIO
+systemctl disable SERVICIO
+#+end_src
+
+- Arrancar o parar un servicio
+#+begin_src shell
+systemctl start SERVICIO
+systemctl stop SERVICIO
+#+end_src
 
 
-* /Backups/ periódicos
+* Operaciones periódicas
 
-* Restauración
+- Los sistemas operativos aportan formas para ejecutar tareas periódicamente
+  - *Windows* tiene las *tareas programadas*
+  - *Linux* tiene el sistema =cron=
+
+** =cron=
+- Es un servicio que 
+  - Lee el fichero =/etc/crontab=
+  - Ejecuta las órdenes descritas en ese fichero
+  - Más información [[https://es.wikipedia.org/wiki/Cron_(Unix)#Formato_del_fichero_crontab][en la Wikipedia]]
+- Suele utilizar el comando =run-parts=
+  - Este comando ejecuta todos los comandos de un directorio
+  - Más información con =man run-parts=
+
 
 

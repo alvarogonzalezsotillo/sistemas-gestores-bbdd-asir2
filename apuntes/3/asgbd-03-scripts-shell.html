@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
-<title>Scripts de shel para Oracle</title>
+<title>Scripts de shell para Oracle</title>
 <meta name="author" content="(Álvaro González Sotillo)"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -1668,15 +1668,18 @@ body {
 <div class="creditos"><img src="../common/background.png"><a href="mailto:alvaro.gonzalezsotillo@educa.madrid.org">alvaro.gonzalezsotillo@educa.madrid.org</a></div>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Scripts de shel para Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-01-17 mar 09:57</p>
+<section id="sec-title-slide"><h1 class="title">Scripts de shell para Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-01-19 jue 18:06</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-orgdc0ffd0">1. Introducción</a></li>
-<li><a href="#/slide-orgc8e0000">2. Prerrequisitos</a></li>
+<li><a href="#/slide-org3fd5973">1. Introducción</a></li>
+<li><a href="#/slide-orga302fa1">2. Prerrequisitos</a></li>
+<li><a href="#/slide-org9855a51">3. Ejecución de <b>SQL</b> desde la <i>shell</i></a></li>
+<li><a href="#/slide-orgd5e86f2">4. Arranque y parada</a></li>
+<li><a href="#/slide-org5d6f52b">5. Operaciones periódicas</a></li>
 </ul>
 </div>
 </div>
@@ -1684,9 +1687,9 @@ body {
 
 
 <section>
-<section id="slide-orgdc0ffd0">
+<section id="slide-org3fd5973">
 <div class="slide-header"></div>
-<h2 id="orgdc0ffd0"><span class="section-number-2">1</span> Introducción</h2>
+<h2 id="org3fd5973"><span class="section-number-2">1</span> Introducción</h2>
 <ul>
 <li>Muchas tareas del mantenimiento de una base de datos <b>Oracle</b> se llevan a cabo desde la línea de comandos</li>
 <li>Por tanto, pueden automatizarse
@@ -1705,13 +1708,14 @@ body {
 </section>
 </section>
 <section>
-<section id="slide-orgc8e0000">
+<section id="slide-orga302fa1">
 <div class="slide-header"></div>
-<h2 id="orgc8e0000"><span class="section-number-2">2</span> Prerrequisitos</h2>
+<h2 id="orga302fa1"><span class="section-number-2">2</span> Prerrequisitos</h2>
 <ul>
 <li>Los comandos de <b>Oracle</b> necesitan conocer a qué instancia hacen referencia</li>
 <li>Para ello, necesitan las variables de entorno <code>ORACLE_HOME</code> y <code>ORACLE_SID</code>.</li>
 <li>También es conveniente añadir los comandos de <b>Oracle</b> al <i>path</i></li>
+<li>El siguiente <i>script</i> puede utilizarse para tener estas variables (ejecutándolo con <code>source</code>)</li>
 
 </ul>
 
@@ -1726,6 +1730,293 @@ export PATH
 export ORACLE_SID
 </code></pre>
 </div>
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-org9855a51">
+<div class="slide-header"></div>
+<h2 id="org9855a51"><span class="section-number-2">3</span> Ejecución de <b>SQL</b> desde la <i>shell</i></h2>
+<ul>
+<li>El comando <code>sqlplus</code>  puede ejecutarse desde la shell</li>
+<li>Lee las órdenes SQL desde la entrada estándar.
+<ul>
+<li>Se puede redirigir de un fichero</li>
+<li>Se puede usar un <i>heredoc</i></li>
+
+</ul></li>
+
+</ul>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgeb152a7">
+<div class="slide-header"></div>
+<h3 id="orgeb152a7"><span class="section-number-3">3.1</span> Ejemplo <i>heredoc</i></h3>
+<div class="org-src-container">
+
+<pre><code class="shell" >sqlplus -S alumno/alumno &lt;&lt;HEREDOC
+set  autocommit off
+create table prueba(un_atributo int);
+insert into prueba values(1);
+insert into prueba values(2);
+select * from prueba;
+rollback;
+HEREDOC
+</code></pre>
+</div>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-org845081e">
+<div class="slide-header"></div>
+<h3 id="org845081e"><span class="section-number-3">3.2</span> Consultas a fichero</h3>
+<ul>
+<li>Puede enviarse la salida a un fichero</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="shell" >sqlplus -S alumno/alumno &lt;&lt;HEREDOC
+set  autocommit off
+insert into prueba values(1);
+insert into prueba values(2);
+spool prueba.txt
+select * from prueba;
+spool off
+rollback;
+HEREDOC
+
+less prueba.txt
+</code></pre>
+</div>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-org58ff24a">
+<div class="slide-header"></div>
+<h3 id="org58ff24a"><span class="section-number-3">3.3</span> Formateo básico de la salida</h3>
+<ul>
+<li>Tiene algunas facilidades para formatear la salida (por ejemplo, para generar ficheros <b>CSV</b>)</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="shell" >sqlplus -S sys/alumno as sysdba &lt;&lt;HEREDOC
+set colsep ','    -- separate columns with a comma
+set pagesize 0    -- No header rows
+set trimspool on  -- remove trailing blanks
+set headsep off   -- this may or may not be useful...depends on your headings.
+set linesize 1000 -- X should be the sum of the column widths
+
+
+spool tablas.csv
+
+select table_name, tablespace_name 
+  from all_tables
+ where owner = 'SYS'
+   and tablespace_name is not null;
+
+spool off
+HEREDOC
+</code></pre>
+</div>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-org22fd36d">
+<div class="slide-header"></div>
+<h3 id="org22fd36d"><span class="section-number-3">3.4</span> <i>Scripts</i> <b>SQL</b> para <code>sqlplus</code></h3>
+<ul>
+<li><code>sqlplus</code> también puede leer scripts de <code>SQL</code> con <b><code>@</code></b></li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="shell" >sqlplus -S sys/alumno as sysdba &lt;&lt;HEREDOC
+@/camino/al/fichero.sql
+HEREDOC
+</code></pre>
+</div>
+
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-orgd5e86f2">
+<div class="slide-header"></div>
+<h2 id="orgd5e86f2"><span class="section-number-2">4</span> Arranque y parada</h2>
+<div class="outline-text-2" id="text-4">
+</div><div class="slide-footer"></div>
+</section>
+<section id="slide-org15e9c05">
+<div class="slide-header"></div>
+<h3 id="org15e9c05"><span class="section-number-3">4.1</span> <code>dbstart</code> y <code>/etc/oratab</code></h3>
+<ul>
+<li><b>Oracle</b> proporciona el <i>script</i> <code>dbstart</code> para arrancar instancias de base de datos</li>
+<li>Se guía por el contenido de <code>/etc/oratab</code></li>
+<li>Por alguna razón, 
+<ul>
+<li>no levanta el <i>listener</i> :(</li>
+<li>no hace <code>startup open</code>, así que no se registra en el <i>listener</i> :(</li>
+<li>Se puede modificar el <i>script</i> para que lo haga</li>
+
+</ul></li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="shell" ># This file is used by ORACLE utilities.  It is created by root.sh
+# and updated by either Database Configuration Assistant while creating
+# a database or ASM Configuration Assistant while creating ASM instance.
+
+# A colon, ':', is used as the field terminator.  A new line terminates
+# the entry.  Lines beginning with a pound sign, '#', are comments.
+#
+# Entries are of the form:
+#   $ORACLE_SID:$ORACLE_HOME:<N|Y>:
+#
+# The first and second fields are the system identifier and home
+# directory of the database respectively.  The third field indicates
+# to the dbstart utility that the database should , "Y", or should not,
+# "N", be brought up at system boot time.
+#
+# Multiple entries with the same $ORACLE_SID are not allowed.
+#
+#
+asir:/var/oracle/product/12.1.0/asir_bbdd:Y
+</code></pre>
+</div>
+
+
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orga01e165">
+<div class="slide-header"></div>
+<h3 id="orga01e165"><span class="section-number-3">4.2</span> Ejecutar <b>Oracle</b> al iniciar el sistema</h3>
+<ul>
+<li>Cada sitema operativo tiene sus formas de arrancar servicios/demonios al inicio
+<ul>
+<li><b>Windows</b>: Servicios</li>
+<li><b>Linux</b>:
+<ul>
+<li><b>systemd</b>: Ficheros en el directorio <code>/etc/systemd/system</code>. Se controla con la orden <code>systemctl</code></li>
+<li><b>rc init</b>: Se basaba en <i>scripts</i> en los directorios <code>/etc/rc.*</code>. Se está reemplazando por <b>systemd</b></li>
+
+</ul></li>
+
+</ul></li>
+
+</ul>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-org91b4d2b">
+<div class="slide-header"></div>
+<h3 id="org91b4d2b"><span class="section-number-3">4.3</span> <b>systemd</b></h3>
+<ul>
+<li>Los servicios se crean con ficheros en <code>/etc/systemd/system</code>
+<ul>
+<li>Dependen de otros servicios (<code>After</code>)</li>
+<li>Otros servicios dependen de ellos (<code>WantedBy</code>)</li>
+<li>Se puede elegir el usuario que lo lanza (<code>User</code>)</li>
+
+</ul></li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre><code class="shell" >[Unit]
+Description=Oracle
+After=network.target
+
+[Service]
+Type=simple
+User=alumno
+ExecStart=/home/alumno/oracle-al-inicio.sh
+ExecStop=/home/alumno/oracle-al-final.sh
+
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+</div>
+
+<p>
+Más información con <code>man systemd.service</code>
+</p>
+
+</section>
+<section >
+
+<ul>
+<li>Habilitar/Deshabilitar un servicio al inicio del sistema</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="shell" >systemctl enable SERVICIO
+systemctl disable SERVICIO
+</code></pre>
+</div>
+
+<ul>
+<li>Arrancar o parar un servicio</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class="shell" >systemctl start SERVICIO
+systemctl stop SERVICIO
+</code></pre>
+</div>
+
+
+<div class="slide-footer"></div>
+</section>
+</section>
+<section>
+<section id="slide-org5d6f52b">
+<div class="slide-header"></div>
+<h2 id="org5d6f52b"><span class="section-number-2">5</span> Operaciones periódicas</h2>
+<ul>
+<li>Los sistemas operativos aportan formas para ejecutar tareas periódicamente
+<ul>
+<li><b>Windows</b> tiene las <b>tareas programadas</b></li>
+<li><b>Linux</b> tiene el sistema <code>cron</code></li>
+
+</ul></li>
+
+</ul>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-org1d45b37">
+<div class="slide-header"></div>
+<h3 id="org1d45b37"><span class="section-number-3">5.1</span> <code>cron</code></h3>
+<ul>
+<li>Es un servicio que 
+<ul>
+<li>Lee el fichero <code>/etc/crontab</code></li>
+<li>Ejecuta las órdenes descritas en ese fichero</li>
+<li>Más información <a href="https://es.wikipedia.org/wiki/Cron_(Unix)#Formato_del_fichero_crontab">en la Wikipedia</a></li>
+
+</ul></li>
+<li>Suele utilizar el comando <code>run-parts</code>
+<ul>
+<li>Este comando ejecuta todos los comandos de un directorio</li>
+<li>Más información con <code>man run-parts</code></li>
+
+</ul></li>
+
+</ul>
 <div class="slide-footer"></div>
 </section>
 </section>
