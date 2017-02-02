@@ -155,7 +155,7 @@ Description=Oracle
 After=network.target
 
 [Service]
-Type=simple
+Type=forked
 User=alumno
 ExecStart=/home/alumno/oracle-al-inicio.sh
 ExecStop=/home/alumno/oracle-al-final.sh
