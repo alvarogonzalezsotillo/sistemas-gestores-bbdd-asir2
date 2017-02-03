@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
-<title>Scripts de shell para Oracle</title>
+<title>Exportar e importar datos de Oracle</title>
 <meta name="author" content="(Álvaro González Sotillo)"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -1668,120 +1668,38 @@ body {
 <div class="creditos"><img src="../common/background.png"><a href="mailto:alvaro.gonzalezsotillo@educa.madrid.org">alvaro.gonzalezsotillo@educa.madrid.org</a></div>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Scripts de shell para Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-01-31 mar 14:21</p>
+<section id="sec-title-slide"><h1 class="title">Exportar e importar datos de Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-01-16 lun 21:35</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-orgb530ede">1. Introducción</a></li>
-<li><a href="#/slide-org6065b07">2. Prerrequisitos</a></li>
-<li><a href="#/slide-orgfea5169">3. Ejecución de <b>SQL</b> desde la <i>shell</i></a></li>
-<li><a href="#/slide-org8587029">4. Arranque y parada</a></li>
-<li><a href="#/slide-org849adc2">5. Operaciones periódicas</a></li>
+<li><a href="#/slide-orgb1cb35c">1. Introducción</a></li>
+<li><a href="#/slide-orge592f29">2. Exportar datos</a></li>
+<li><a href="#/slide-org79a9805">3. Importar datos</a></li>
 </ul>
 </div>
 </div>
 </section>
 
-
 <section>
-<section id="slide-orgb530ede">
+<section id="slide-orgb1cb35c">
 <div class="slide-header"></div>
-<h2 id="orgb530ede"><span class="section-number-2">1</span> Introducción</h2>
-<ul>
-<li>Muchas tareas del mantenimiento de una base de datos <b>Oracle</b> se llevan a cabo desde la línea de comandos</li>
-<li>Por tanto, pueden automatizarse
-<ul>
-<li>Arranque y parada</li>
-<li>Extracción de datos</li>
-<li>Copia de seguridad de datos</li>
-<li>Restauración de datos</li>
-
-</ul></li>
-<li>Para ello, se utilizan las facilidades de ejecución del sistema operativo aprendidas en otros módulos</li>
-
-</ul>
-
+<h2 id="orgb1cb35c"><span class="section-number-2">1</span> Introducción</h2>
 
 <div class="slide-footer"></div>
 </section>
 </section>
 <section>
-<section id="slide-org6065b07">
+<section id="slide-orge592f29">
 <div class="slide-header"></div>
-<h2 id="org6065b07"><span class="section-number-2">2</span> Prerrequisitos</h2>
+<h2 id="orge592f29"><span class="section-number-2">2</span> Exportar datos</h2>
 <ul>
-<li>Los comandos de <b>Oracle</b> necesitan conocer a qué instancia hacen referencia</li>
-<li>Para ello, necesitan las variables de entorno <code>ORACLE_HOME</code> y <code>ORACLE_SID</code>.</li>
-<li>También es conveniente añadir los comandos de <b>Oracle</b> al <i>path</i></li>
-<li>El siguiente <i>script</i> puede utilizarse para tener estas variables (ejecutándolo con <code>source</code>)</li>
-
-</ul>
-
-<div class="org-src-container">
-
-<pre><code class="shell" >#!/bin/sh 
-ORACLE_HOME=/var/oracle/product/12.1.0/asir_bbdd
-ORACLE_SID=asir
-PATH=$ORACLE_HOME/bin:$PATH
-export ORACLE_HOME
-export PATH
-export ORACLE_SID
-</code></pre>
-</div>
-
-<div class="slide-footer"></div>
-</section>
-<section id="slide-orgcf470ab">
-<div class="slide-header"></div>
-<h3 id="orgcf470ab"><span class="section-number-3">2.1</span> Autenticación de <b>SQLPlus</b></h3>
+<li>Se utiliza el comando <code>expdp</code>
 <ul>
-<li><b>SQLPlus</b> se autentica/autentifica de varias formas
-<ul>
-<li>Mediante <b>Oracle</b>: usuarios creados con <code>create user..</code></li>
-<li>Mediante el <b>sistema operativo</b>: Al instalar, se indica un grupo de usarios que <b>Oracle</b> considera autenticados (grupo <code>wheel</code>)</li>
-
-</ul></li>
-
-</ul>
-
-</section>
-<section >
-<p>
-<b>SQLPlus</b> con autenticación de sistema operativo
-</p>
-<div class="org-src-container">
-
-<pre><code class="shell" >sqlplus / as sysdba
-</code></pre>
-</div>
-
-<p>
-<b>SQLPlus</b> con autenticación de <b>Oracle</b>
-</p>
-<div class="org-src-container">
-
-<pre><code class="shell" >sqlplus sys/alumno as sysdba
-</code></pre>
-</div>
-
-<div class="slide-footer"></div>
-</section>
-<section id="slide-orgfbd6d2a">
-<div class="slide-header"></div>
-<h3 id="orgfbd6d2a"><span class="section-number-3">2.2</span> Conexiones de <b>SQLPlus</b></h3>
-<ul>
-<li>Hasta ahora
-<ul>
-<li>todas las conexiones de <b>SQLPlus</b> son locales, sin utilizar la red</li>
-<li>todas las conexiones de <b>SQLDeveloper</b> son por red</li>
-
-</ul></li>
-<li>Para conectar por red con <b>SQLPlus</b> se utiliza un descriptor de conexión
-<ul>
-<li>Los descriptores están en el fichero <code>tnsnames.ora</code></li>
+<li>Ayuda con <code>expdp help=yes</code></li>
+<li>Es necesario crear antes el <code>directory</code> de <b>Oracle</b></li>
 
 </ul></li>
 
@@ -1789,263 +1707,288 @@ export ORACLE_SID
 
 <div class="org-src-container">
 
-<pre><code class="shell" >sqlplus sys/alumno@CONEXION as sysdba
+<pre><code class="C" >Export: Release 12.1.0.2.0 - Production on Fri Dec 16 13:32:15 2016
+
+Copyright (c) 1982, 2015, Oracle and/or its affiliates.  All rights reserved.
+
+
+The Data Pump export utility provides a mechanism for transferring data objects
+between Oracle databases. The utility is invoked with the following command:
+
+   Example: expdp scott/tiger DIRECTORY=dmpdir DUMPFILE=scott.dmp
+
+You can control how Export runs by entering the 'expdp' command followed
+by various parameters. To specify parameters, you use keywords:
+
+   Format:  expdp KEYWORD=value or KEYWORD=(value1,value2,...,valueN)
+   Example: expdp scott/tiger DUMPFILE=scott.dmp DIRECTORY=dmpdir SCHEMAS=scott
+               or TABLES=(T1:P1,T1:P2), if T1 is partitioned table
+
+USERID must be the first parameter on the command line.
+
+------------------------------------------------------------------------------
+
+The available keywords and their descriptions follow. Default values are listed within square brackets.
+
+ABORT_STEP
+Stop the job after it is initialized or at the indicated object.
+Valid values are -1 or N where N is zero or greater.
+N corresponds to the object's process order number in the master table.
+
+ACCESS_METHOD
+Instructs Export to use a particular method to unload data.
+Valid keyword values are: [AUTOMATIC], DIRECT_PATH and EXTERNAL_TABLE.
+
+ATTACH
+Attach to an existing job.
+For example, ATTACH=job_name.
+
+CLUSTER
+Utilize cluster resources and distribute workers across the Oracle RAC [YES].
+
+COMPRESSION
+Reduce the size of a dump file.
+Valid keyword values are: ALL, DATA_ONLY, [METADATA_ONLY] and NONE.
+
+COMPRESSION_ALGORITHM
+Specify the compression algorithm that should be used.
+Valid keyword values are: [BASIC], LOW, MEDIUM and HIGH.
+
+CONTENT
+Specifies data to unload.
+Valid keyword values are: [ALL], DATA_ONLY and METADATA_ONLY.
+
+DATA_OPTIONS
+Data layer option flags.
+Valid keyword values are: XML_CLOBS.
+
+DIRECTORY
+Directory object to be used for dump and log files.
+
+DUMPFILE
+Specify list of destination dump file names [expdat.dmp].
+For example, DUMPFILE=scott1.dmp, scott2.dmp, dmpdir:scott3.dmp.
+
+ENCRYPTION
+Encrypt part or all of a dump file.
+Valid keyword values are: ALL, DATA_ONLY, ENCRYPTED_COLUMNS_ONLY, METADATA_ONLY and NONE.
+
+ENCRYPTION_ALGORITHM
+Specify how encryption should be done.
+Valid keyword values are: [AES128], AES192 and AES256.
+
+ENCRYPTION_MODE
+Method of generating encryption key.
+Valid keyword values are: DUAL, PASSWORD and [TRANSPARENT].
+
+ENCRYPTION_PASSWORD
+Password key for creating encrypted data within a dump file.
+
+ENCRYPTION_PWD_PROMPT
+Specifies whether to prompt for the encryption password [NO].
+Terminal echo will be suppressed while standard input is read.
+
+ESTIMATE
+Calculate job estimates.
+Valid keyword values are: [BLOCKS] and STATISTICS.
+
+ESTIMATE_ONLY
+Calculate job estimates without performing the export [NO].
+
+EXCLUDE
+Exclude specific object types.
+For example, EXCLUDE=SCHEMA:"='HR'".
+
+FILESIZE
+Specify the size of each dump file in units of bytes.
+
+FLASHBACK_SCN
+SCN used to reset session snapshot.
+
+FLASHBACK_TIME
+Time used to find the closest corresponding SCN value.
+
+FULL
+Export entire database [NO].
+
+HELP
+Display Help messages [NO].
+
+INCLUDE
+Include specific object types.
+For example, INCLUDE=TABLE_DATA.
+
+JOB_NAME
+Name of export job to create.
+
+KEEP_MASTER
+Retain the master table after an export job that completes successfully [NO].
+
+LOGFILE
+Specify log file name [export.log].
+
+LOGTIME
+Specifies that messages displayed during export operations be timestamped.
+Valid keyword values are: ALL, [NONE], LOGFILE and STATUS.
+
+METRICS
+Report additional job information to the export log file [NO].
+
+NETWORK_LINK
+Name of remote database link to the source system.
+
+NOLOGFILE
+Do not write log file [NO].
+
+PARALLEL
+Change the number of active workers for current job.
+
+PARFILE
+Specify parameter file name.
+
+QUERY
+Predicate clause used to export a subset of a table.
+For example, QUERY=employees:"WHERE department_id > 10".
+
+REMAP_DATA
+Specify a data conversion function.
+For example, REMAP_DATA=EMP.EMPNO:REMAPPKG.EMPNO.
+
+REUSE_DUMPFILES
+Overwrite destination dump file if it exists [NO].
+
+SAMPLE
+Percentage of data to be exported. 
+
+SCHEMAS
+List of schemas to export [login schema].
+
+SERVICE_NAME
+Name of an active Service and associated resource group to constrain Oracle RAC resources.
+
+SOURCE_EDITION
+Edition to be used for extracting metadata.
+
+STATUS
+Frequency (secs) job status is to be monitored where
+the default [0] will show new status when available.
+
+TABLES
+Identifies a list of tables to export.
+For example, TABLES=HR.EMPLOYEES,SH.SALES:SALES_1995.
+
+TABLESPACES
+Identifies a list of tablespaces to export.
+
+TRANSPORTABLE
+Specify whether transportable method can be used.
+Valid keyword values are: ALWAYS and [NEVER].
+
+TRANSPORT_FULL_CHECK
+Verify storage segments of all tables [NO].
+
+TRANSPORT_TABLESPACES
+List of tablespaces from which metadata will be unloaded.
+
+VERSION
+Version of objects to export.
+Valid keyword values are: [COMPATIBLE], LATEST or any valid database version.
+
+VIEWS_AS_TABLES
+Identifies one or more views to be exported as tables.
+For example, VIEWS_AS_TABLES=HR.EMP_DETAILS_VIEW.
+
+------------------------------------------------------------------------------
+
+The following commands are valid while in interactive mode.
+Note: abbreviations are allowed.
+
+ADD_FILE
+Add dumpfile to dumpfile set.
+
+CONTINUE_CLIENT
+Return to logging mode. Job will be restarted if idle.
+
+EXIT_CLIENT
+Quit client session and leave job running.
+
+FILESIZE
+Default filesize (bytes) for subsequent ADD_FILE commands.
+
+HELP
+Summarize interactive commands.
+
+KILL_JOB
+Detach and delete job.
+
+PARALLEL
+Change the number of active workers for current job.
+
+REUSE_DUMPFILES
+Overwrite destination dump file if it exists [NO]. 
+
+START_JOB
+Start or resume current job.
+Valid keyword values are: SKIP_CURRENT.
+
+STATUS
+Frequency (secs) job status is to be monitored where
+the default [0] will show new status when available.
+
+STOP_JOB
+Orderly shutdown of job execution and exits the client.
+Valid keyword values are: IMMEDIATE.
 </code></pre>
 </div>
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org916c56e">
+<section id="slide-org61b7243">
 <div class="slide-header"></div>
-<h3 id="org916c56e"><span class="section-number-3">2.3</span> <code>tnsnames.ora</code></h3>
-
-
-
-
-<div class="slide-footer"></div>
-</section>
-</section>
-<section>
-<section id="slide-orgfea5169">
-<div class="slide-header"></div>
-<h2 id="orgfea5169"><span class="section-number-2">3</span> Ejecución de <b>SQL</b> desde la <i>shell</i></h2>
-<ul>
-<li>El comando <code>sqlplus</code>  puede ejecutarse desde la shell</li>
-<li>Lee las órdenes SQL desde la entrada estándar.
-<ul>
-<li>Se puede redirigir de un fichero</li>
-<li>Se puede usar un <i>heredoc</i></li>
-
-</ul></li>
-
-</ul>
-
-<div class="slide-footer"></div>
-</section>
-<section id="slide-org25a9f68">
-<div class="slide-header"></div>
-<h3 id="org25a9f68"><span class="section-number-3">3.1</span> Ejemplo <i>heredoc</i></h3>
+<h3 id="org61b7243"><span class="section-number-3">2.1</span> Ejemplo de exportación</h3>
 <div class="org-src-container">
 
-<pre><code class="shell" >sqlplus -S alumno/alumno &lt;&lt;HEREDOC
-set  autocommit off
-create table prueba(un_atributo int);
-insert into prueba values(1);
-insert into prueba values(2);
-select * from prueba;
-rollback;
-HEREDOC
-</code></pre>
-</div>
+<pre><code class="shell" >[alumno@centos-asgbd ~]$ expdp alumno/alumno directory=mi_directorio_de_backup schemas=alumno dumpfile=alumno.dmp logfile=alumno.log
+Export: Release 12.1.0.2.0 - Production on Fri Dec 16 13:07:26 2016
 
-<div class="slide-footer"></div>
-</section>
-<section id="slide-orgf94ef57">
-<div class="slide-header"></div>
-<h3 id="orgf94ef57"><span class="section-number-3">3.2</span> Consultas a fichero</h3>
-<ul>
-<li>Puede enviarse la salida a un fichero</li>
+Copyright (c) 1982, 2015, Oracle and/or its affiliates.  All rights reserved.
 
-</ul>
-
-<div class="org-src-container">
-
-<pre><code class="shell" >sqlplus -S alumno/alumno &lt;&lt;HEREDOC
-set  autocommit off
-insert into prueba values(1);
-insert into prueba values(2);
-spool prueba.txt
-select * from prueba;
-spool off
-rollback;
-HEREDOC
-
-less prueba.txt
-</code></pre>
-</div>
-
-<div class="slide-footer"></div>
-</section>
-<section id="slide-orgc1d907a">
-<div class="slide-header"></div>
-<h3 id="orgc1d907a"><span class="section-number-3">3.3</span> Formateo básico de la salida</h3>
-<ul>
-<li>Tiene algunas facilidades para formatear la salida (por ejemplo, para generar ficheros <b>CSV</b>)</li>
-
-</ul>
-<div class="org-src-container">
-
-<pre><code class="shell" >sqlplus -S sys/alumno as sysdba &lt;&lt;HEREDOC
-set colsep ','    -- separate columns with a comma
-set pagesize 0    -- No header rows
-set trimspool on  -- remove trailing blanks
-set headsep off   -- this may or may not be useful...depends on your headings.
-set linesize 1000 -- X should be the sum of the column widths
-
-
-spool tablas.csv
-
-select table_name, tablespace_name 
-  from all_tables
- where owner = 'SYS'
-   and tablespace_name is not null;
-
-spool off
-HEREDOC
-</code></pre>
-</div>
-
-<div class="slide-footer"></div>
-</section>
-<section id="slide-orgb400840">
-<div class="slide-header"></div>
-<h3 id="orgb400840"><span class="section-number-3">3.4</span> <i>Scripts</i> <b>SQL</b> para <code>sqlplus</code></h3>
-<ul>
-<li><code>sqlplus</code> también puede leer scripts de <code>SQL</code> con <b><code>@</code></b></li>
-
-</ul>
-
-<div class="org-src-container">
-
-<pre><code class="shell" >sqlplus -S sys/alumno as sysdba &lt;&lt;HEREDOC
-@/camino/al/fichero.sql
-HEREDOC
+Connected to: Oracle Database 12c Standard Edition Release 12.1.0.2.0 - 64bit Production
+Starting "ALUMNO"."SYS_EXPORT_SCHEMA_01":  alumno/******** directory=mi_directorio_de_backup schemas=alumno dumpfile=alumno.dmp logfile=alumno.log 
+Estimate in progress using BLOCKS method...
+Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
+Total estimation using BLOCKS method: 192 KB
+Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
+Processing object type SCHEMA_EXPORT/TABLE/TABLE
+Processing object type SCHEMA_EXPORT/TABLE/GRANT/OWNER_GRANT/OBJECT_GRANT
+Processing object type SCHEMA_EXPORT/TABLE/COMMENT
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
+. . exported "ALUMNO"."MATRICULAS"                     6.523 KB      44 rows
+. . exported "ALUMNO"."MULTAS"                         8.195 KB      35 rows
+. . exported "ALUMNO"."PERSONAS"                       6.875 KB      47 rows
+Master table "ALUMNO"."SYS_EXPORT_SCHEMA_01" successfully loaded/unloaded
+******************************************************************************
+Dump file set for ALUMNO.SYS_EXPORT_SCHEMA_01 is:
+  /home/alumno/backups/alumno.dmp
+Job "ALUMNO"."SYS_EXPORT_SCHEMA_01" successfully completed at Fri Dec 16 13:08:00 2016 elapsed 0 00:00:33
 </code></pre>
 </div>
 
 
 <div class="slide-footer"></div>
 </section>
-</section>
-<section>
-<section id="slide-org8587029">
+<section id="slide-org8b82c8b">
 <div class="slide-header"></div>
-<h2 id="org8587029"><span class="section-number-2">4</span> Arranque y parada</h2>
-<div class="outline-text-2" id="text-4">
-</div><div class="slide-footer"></div>
-</section>
-<section id="slide-org7441d10">
-<div class="slide-header"></div>
-<h3 id="org7441d10"><span class="section-number-3">4.1</span> <code>dbstart</code> y <code>/etc/oratab</code></h3>
-<ul>
-<li><b>Oracle</b> proporciona el <i>script</i> <code>dbstart</code> para arrancar instancias de base de datos</li>
-<li>Se guía por el contenido de <code>/etc/oratab</code></li>
-<li>Por alguna razón, 
-<ul>
-<li>no levanta el <i>listener</i> :(</li>
-<li>no hace <code>startup open</code>, así que no se registra en el <i>listener</i> :(</li>
-<li>Se puede modificar el <i>script</i> para que lo haga</li>
-
-</ul></li>
-
-</ul>
-
+<h3 id="org8b82c8b"><span class="section-number-3">2.2</span> Definir un directorio</h3>
 <div class="org-src-container">
 
-<pre><code class="shell" ># This file is used by ORACLE utilities.  It is created by root.sh
-# and updated by either Database Configuration Assistant while creating
-# a database or ASM Configuration Assistant while creating ASM instance.
-
-# A colon, ':', is used as the field terminator.  A new line terminates
-# the entry.  Lines beginning with a pound sign, '#', are comments.
-#
-# Entries are of the form:
-#   $ORACLE_SID:$ORACLE_HOME:<N|Y>:
-#
-# The first and second fields are the system identifier and home
-# directory of the database respectively.  The third field indicates
-# to the dbstart utility that the database should , "Y", or should not,
-# "N", be brought up at system boot time.
-#
-# Multiple entries with the same $ORACLE_SID are not allowed.
-#
-#
-asir:/var/oracle/product/12.1.0/asir_bbdd:Y
-</code></pre>
-</div>
-
-
-
-<div class="slide-footer"></div>
-</section>
-<section id="slide-org99ce975">
-<div class="slide-header"></div>
-<h3 id="org99ce975"><span class="section-number-3">4.2</span> Ejecutar <b>Oracle</b> al iniciar el sistema</h3>
-<ul>
-<li>Cada sitema operativo tiene sus formas de arrancar servicios/demonios al inicio
-<ul>
-<li><b>Windows</b>: Servicios</li>
-<li><b>Linux</b>:
-<ul>
-<li><b>systemd</b>: Ficheros en el directorio <code>/etc/systemd/system</code>. Se controla con la orden <code>systemctl</code></li>
-<li><b>rc init</b>: Se basaba en <i>scripts</i> en los directorios <code>/etc/rc.*</code>. Se está reemplazando por <b>systemd</b></li>
-
-</ul></li>
-
-</ul></li>
-
-</ul>
-
-<div class="slide-footer"></div>
-</section>
-<section id="slide-orgdcd200f">
-<div class="slide-header"></div>
-<h3 id="orgdcd200f"><span class="section-number-3">4.3</span> <b>systemd</b></h3>
-<ul>
-<li>Los servicios se crean con ficheros en <code>/etc/systemd/system</code>
-<ul>
-<li>Dependen de otros servicios (<code>After</code>)</li>
-<li>Otros servicios dependen de ellos (<code>WantedBy</code>)</li>
-<li>Se puede elegir el usuario que lo lanza (<code>User</code>)</li>
-
-</ul></li>
-
-</ul>
-
-<div class="org-src-container">
-
-<pre><code class="shell" >[Unit]
-Description=Oracle
-After=network.target
-
-[Service]
-Type=forking
-User=alumno
-ExecStart=/home/alumno/oracle-al-inicio.sh
-ExecStop=/home/alumno/oracle-al-final.sh
-
-
-[Install]
-WantedBy=multi-user.target
-</code></pre>
-</div>
-
-<p>
-Más información con <code>man systemd.service</code>
-</p>
-
-</section>
-<section >
-
-<ul>
-<li>Habilitar/Deshabilitar un servicio al inicio del sistema</li>
-
-</ul>
-<div class="org-src-container">
-
-<pre><code class="shell" >systemctl enable SERVICIO
-systemctl disable SERVICIO
-</code></pre>
-</div>
-
-<ul>
-<li>Arrancar o parar un servicio</li>
-
-</ul>
-<div class="org-src-container">
-
-<pre><code class="shell" >systemctl start SERVICIO
-systemctl stop SERVICIO
+<pre><code class="sql" >grant create any directory to myschema; 
+create directory mi_directorio_de_backup as '/home/alumno/backups';
 </code></pre>
 </div>
 
@@ -2054,40 +1997,314 @@ systemctl stop SERVICIO
 </section>
 </section>
 <section>
-<section id="slide-org849adc2">
+<section id="slide-org79a9805">
 <div class="slide-header"></div>
-<h2 id="org849adc2"><span class="section-number-2">5</span> Operaciones periódicas</h2>
+<h2 id="org79a9805"><span class="section-number-2">3</span> Importar datos</h2>
 <ul>
-<li>Los sistemas operativos aportan formas para ejecutar tareas periódicamente
+<li>Se utiliza el comando <code>impdp</code>
 <ul>
-<li><b>Windows</b> tiene las <b>tareas programadas</b></li>
-<li><b>Linux</b> tiene el sistema <code>cron</code></li>
+<li>Ayuda con <code>expdp help=yes</code></li>
 
 </ul></li>
 
 </ul>
+
+<div class="org-src-container">
+
+<pre><code class="C" >Import: Release 12.1.0.2.0 - Production on Fri Dec 16 13:31:18 2016
+
+Copyright (c) 1982, 2015, Oracle and/or its affiliates.  All rights reserved.
+
+
+The Data Pump Import utility provides a mechanism for transferring data objects
+between Oracle databases. The utility is invoked with the following command:
+
+     Example: impdp scott/tiger DIRECTORY=dmpdir DUMPFILE=scott.dmp
+
+You can control how Import runs by entering the 'impdp' command followed
+by various parameters. To specify parameters, you use keywords:
+
+     Format:  impdp KEYWORD=value or KEYWORD=(value1,value2,...,valueN)
+     Example: impdp scott/tiger DIRECTORY=dmpdir DUMPFILE=scott.dmp
+
+USERID must be the first parameter on the command line.
+
+------------------------------------------------------------------------------
+
+The available keywords and their descriptions follow. Default values are listed within square brackets.
+
+ABORT_STEP
+Stop the job after it is initialized or at the indicated object.
+Valid values are -1 or N where N is zero or greater.
+N corresponds to the object's process order number in the master table.
+
+ACCESS_METHOD
+Instructs Import to use a particular method to load data.
+Valid keyword values are: [AUTOMATIC], CONVENTIONAL, DIRECT_PATH
+and EXTERNAL_TABLE.
+
+ATTACH
+Attach to an existing job.
+For example, ATTACH=job_name.
+
+CLUSTER
+Utilize cluster resources and distribute workers across the Oracle RAC [YES].
+
+CONTENT
+Specifies data to load.
+Valid keywords are: [ALL], DATA_ONLY and METADATA_ONLY.
+
+DATA_OPTIONS
+Data layer option flags.
+Valid keywords are: DISABLE_APPEND_HINT and SKIP_CONSTRAINT_ERRORS.
+
+DIRECTORY
+Directory object to be used for dump, log and SQL files.
+
+DUMPFILE
+List of dump files to import from [expdat.dmp].
+For example, DUMPFILE=scott1.dmp, scott2.dmp, dmpdir:scott3.dmp.
+
+ENCRYPTION_PASSWORD
+Password key for accessing encrypted data within a dump file.
+Not valid for network import jobs.
+
+ENCRYPTION_PWD_PROMPT
+Specifies whether to prompt for the encryption password [NO].
+Terminal echo will be suppressed while standard input is read.
+
+ESTIMATE
+Calculate network job estimates.
+Valid keywords are: [BLOCKS] and STATISTICS.
+
+EXCLUDE
+Exclude specific object types.
+For example, EXCLUDE=SCHEMA:"='HR'".
+
+FLASHBACK_SCN
+SCN used to reset session snapshot.
+
+FLASHBACK_TIME
+Time used to find the closest corresponding SCN value.
+
+FULL
+Import everything from source [YES].
+
+HELP
+Display help messages [NO].
+
+INCLUDE
+Include specific object types.
+For example, INCLUDE=TABLE_DATA.
+
+JOB_NAME
+Name of import job to create.
+
+KEEP_MASTER
+Retain the master table after an import job that completes successfully [NO].
+
+LOGFILE
+Log file name [import.log].
+
+LOGTIME
+Specifies that messages displayed during import operations be timestamped.
+Valid keyword values are: ALL, [NONE], LOGFILE and STATUS.
+
+MASTER_ONLY
+Import just the master table and then stop the job [NO].
+
+METRICS
+Report additional job information to the import log file [NO].
+
+NETWORK_LINK
+Name of remote database link to the source system.
+
+NOLOGFILE
+Do not write log file [NO].
+
+PARALLEL
+Change the number of active workers for current job.
+
+PARFILE
+Specify parameter file.
+
+PARTITION_OPTIONS
+Specify how partitions should be transformed.
+Valid keywords are: DEPARTITION, MERGE and [NONE].
+
+QUERY
+Predicate clause used to import a subset of a table.
+For example, QUERY=employees:"WHERE department_id > 10".
+
+REMAP_DATA
+Specify a data conversion function.
+For example, REMAP_DATA=EMP.EMPNO:REMAPPKG.EMPNO.
+
+REMAP_DATAFILE
+Redefine data file references in all DDL statements.
+
+REMAP_SCHEMA
+Objects from one schema are loaded into another schema.
+
+REMAP_TABLE
+Table names are remapped to another table.
+For example, REMAP_TABLE=HR.EMPLOYEES:EMPS.
+
+REMAP_TABLESPACE
+Tablespace objects are remapped to another tablespace.
+
+REUSE_DATAFILES
+Tablespace will be initialized if it already exists [NO].
+
+SCHEMAS
+List of schemas to import.
+
+SERVICE_NAME
+Name of an active Service and associated resource group to constrain Oracle RAC resources.
+
+SKIP_UNUSABLE_INDEXES
+Skip indexes that were set to the Index Unusable state.
+
+SOURCE_EDITION
+Edition to be used for extracting metadata.
+
+SQLFILE
+Write all the SQL DDL to a specified file.
+
+STATUS
+Frequency (secs) job status is to be monitored where
+the default [0] will show new status when available.
+
+STREAMS_CONFIGURATION
+Enable the loading of Streams metadata [YES].
+
+TABLE_EXISTS_ACTION
+Action to take if imported object already exists.
+Valid keywords are: APPEND, REPLACE, [SKIP] and TRUNCATE.
+
+TABLES
+Identifies a list of tables to import.
+For example, TABLES=HR.EMPLOYEES,SH.SALES:SALES_1995.
+
+TABLESPACES
+Identifies a list of tablespaces to import.
+
+TARGET_EDITION
+Edition to be used for loading metadata.
+
+TRANSFORM
+Metadata transform to apply to applicable objects.
+Valid keywords are: DISABLE_ARCHIVE_LOGGING, INMEMORY, INMEMORY_CLAUSE,
+LOB_STORAGE, OID, PCTSPACE, SEGMENT_ATTRIBUTES, STORAGE, and
+TABLE_COMPRESSION_CLAUSE.
+
+TRANSPORTABLE
+Options for choosing transportable data movement.
+Valid keywords are: ALWAYS and [NEVER].
+Only valid in NETWORK_LINK mode import operations.
+
+TRANSPORT_DATAFILES
+List of data files to be imported by transportable mode.
+
+TRANSPORT_FULL_CHECK
+Verify storage segments of all tables [NO].
+Only valid in NETWORK_LINK mode import operations.
+
+TRANSPORT_TABLESPACES
+List of tablespaces from which metadata will be loaded.
+Only valid in NETWORK_LINK mode import operations.
+
+VERSION
+Version of objects to import.
+Valid keywords are: [COMPATIBLE], LATEST, or any valid database version.
+Only valid for NETWORK_LINK and SQLFILE.
+
+VIEWS_AS_TABLES
+Identifies one or more views to be imported as tables.
+For example, VIEWS_AS_TABLES=HR.EMP_DETAILS_VIEW.
+Note that in network import mode, a table name may be appended
+to the view name.
+
+------------------------------------------------------------------------------
+
+The following commands are valid while in interactive mode.
+Note: abbreviations are allowed.
+
+CONTINUE_CLIENT
+Return to logging mode. Job will be restarted if idle.
+
+EXIT_CLIENT
+Quit client session and leave job running.
+
+HELP
+Summarize interactive commands.
+
+KILL_JOB
+Detach and delete job.
+
+PARALLEL
+Change the number of active workers for current job.
+
+START_JOB
+Start or resume current job.
+Valid keywords are: SKIP_CURRENT.
+
+STATUS
+Frequency (secs) job status is to be monitored where
+the default [0] will show new status when available.
+
+STOP_JOB
+Orderly shutdown of job execution and exits the client.
+Valid keywords are: IMMEDIATE.
+</code></pre>
+</div>
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org09b19b1">
+<section id="slide-orgf846bfe">
 <div class="slide-header"></div>
-<h3 id="org09b19b1"><span class="section-number-3">5.1</span> <code>cron</code></h3>
+<h3 id="orgf846bfe"><span class="section-number-3">3.1</span> Importar un <code>schema</code> en otro <code>schema</code></h3>
 <ul>
-<li>Es un servicio que 
-<ul>
-<li>Lee el fichero <code>/etc/crontab</code></li>
-<li>Ejecuta las órdenes descritas en ese fichero</li>
-<li>Más información <a href="https://es.wikipedia.org/wiki/Cron_(Unix)#Formato_del_fichero_crontab">en la Wikipedia</a></li>
-
-</ul></li>
-<li>Suele utilizar el comando <code>run-parts</code>
-<ul>
-<li>Este comando ejecuta todos los comandos de un directorio</li>
-<li>Más información con <code>man run-parts</code></li>
-
-</ul></li>
+<li>Importar un fichero del usuario <code>profesor</code> en el usuario <code>alumno</code></li>
 
 </ul>
+
+<div class="org-src-container">
+
+<pre><code class="shell" >impdp system/alumno SCHEMAS=alumno remap_schema=alumno:profesor \
+            directory=EXPORTDIR \
+            dumpfile=profesor.dmp
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="shell" >[alumno@centos-asgbd backups]$ impdp system/alumno schemas=profesor remap_schema=profesor:alumno directory=mi_directorio_de_backup dumpfile=profesor.dmp       
+
+Import: Release 12.1.0.2.0 - Production on Fri Dec 16 13:23:38 2016
+
+Copyright (c) 1982, 2015, Oracle and/or its affiliates.  All rights reserved.
+
+Connected to: Oracle Database 12c Standard Edition Release 12.1.0.2.0 - 64bit Production
+Master table "SYSTEM"."SYS_IMPORT_SCHEMA_01" successfully loaded/unloaded
+Starting "SYSTEM"."SYS_IMPORT_SCHEMA_01":  system/******** schemas=profesor remap_schema=profesor:alumno directory=mi_directorio_de_backup dumpfile=profesor.dm
+p 
+Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
+Processing object type SCHEMA_EXPORT/TABLE/TABLE
+Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
+. . imported "ALUMNO"."MATRICULAS"                       6.523 KB      44 rows
+. . imported "ALUMNO"."MULTAS"                           8.195 KB      35 rows
+. . imported "ALUMNO"."PERSONAS"                         6.875 KB      47 rows
+Processing object type SCHEMA_EXPORT/TABLE/GRANT/OWNER_GRANT/OBJECT_GRANT
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
+Job "SYSTEM"."SYS_IMPORT_SCHEMA_01" successfully completed at Fri Dec 16 13:23:58 2016 elapsed 0 00:00:19
+</code></pre>
+</div>
 <div class="slide-footer"></div>
 </section>
 </section>

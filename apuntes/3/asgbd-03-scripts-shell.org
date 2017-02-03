@@ -31,6 +31,38 @@ export PATH
 export ORACLE_SID
 #+end_src
 
+** Autenticación de *SQLPlus*
+- *SQLPlus* se autentica/autentifica de varias formas
+  - Mediante *Oracle*: usuarios creados con =create user..=
+  - Mediante el *sistema operativo*: Al instalar, se indica un grupo de usarios que *Oracle* considera autenticados (grupo =wheel=)
+
+#+reveal: split
+*SQLPlus* con autenticación de sistema operativo
+#+begin_src shell
+sqlplus / as sysdba
+#+end_src
+
+*SQLPlus* con autenticación de *Oracle*
+#+begin_src shell
+sqlplus sys/alumno as sysdba
+#+end_src
+
+** Conexiones de *SQLPlus*
+- Hasta ahora
+  - todas las conexiones de *SQLPlus* son locales, sin utilizar la red
+  - todas las conexiones de *SQLDeveloper* son por red
+- Para conectar por red con *SQLPlus* se utiliza un descriptor de conexión
+  - Los descriptores están en el fichero =tnsnames.ora=
+
+#+begin_src shell
+sqlplus sys/alumno@CONEXION as sysdba
+#+end_src
+
+** =tnsnames.ora=
+
+
+
+
 * Ejecución de *SQL* desde la /shell/
 - El comando =sqlplus=  puede ejecutarse desde la shell
 - Lee las órdenes SQL desde la entrada estándar.
@@ -155,7 +187,7 @@ Description=Oracle
 After=network.target
 
 [Service]
-Type=simple
+Type=forking
 User=alumno
 ExecStart=/home/alumno/oracle-al-inicio.sh
 ExecStop=/home/alumno/oracle-al-final.sh
