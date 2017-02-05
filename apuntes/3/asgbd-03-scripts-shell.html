@@ -1668,18 +1668,18 @@ body {
 <div class="creditos"><img src="../common/background.png"><a href="mailto:alvaro.gonzalezsotillo@educa.madrid.org">alvaro.gonzalezsotillo@educa.madrid.org</a></div>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Scripts de shell para Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-01-31 mar 14:21</p>
+<section id="sec-title-slide"><h1 class="title">Scripts de shell para Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-02-05 dom 16:47</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-orgb530ede">1. Introducción</a></li>
-<li><a href="#/slide-org6065b07">2. Prerrequisitos</a></li>
-<li><a href="#/slide-orgfea5169">3. Ejecución de <b>SQL</b> desde la <i>shell</i></a></li>
-<li><a href="#/slide-org8587029">4. Arranque y parada</a></li>
-<li><a href="#/slide-org849adc2">5. Operaciones periódicas</a></li>
+<li><a href="#/slide-org8c49f3e">1. Introducción</a></li>
+<li><a href="#/slide-org9e4ef45">2. Prerrequisitos</a></li>
+<li><a href="#/slide-orgd91a8d9">3. Ejecución de <b>SQL</b> desde la <i>shell</i></a></li>
+<li><a href="#/slide-orgcbd48da">4. Arranque y parada</a></li>
+<li><a href="#/slide-orgfa8444c">5. Operaciones periódicas</a></li>
 </ul>
 </div>
 </div>
@@ -1687,9 +1687,9 @@ body {
 
 
 <section>
-<section id="slide-orgb530ede">
+<section id="slide-org8c49f3e">
 <div class="slide-header"></div>
-<h2 id="orgb530ede"><span class="section-number-2">1</span> Introducción</h2>
+<h2 id="org8c49f3e"><span class="section-number-2">1</span> Introducción</h2>
 <ul>
 <li>Muchas tareas del mantenimiento de una base de datos <b>Oracle</b> se llevan a cabo desde la línea de comandos</li>
 <li>Por tanto, pueden automatizarse
@@ -1709,9 +1709,9 @@ body {
 </section>
 </section>
 <section>
-<section id="slide-org6065b07">
+<section id="slide-org9e4ef45">
 <div class="slide-header"></div>
-<h2 id="org6065b07"><span class="section-number-2">2</span> Prerrequisitos</h2>
+<h2 id="org9e4ef45"><span class="section-number-2">2</span> Prerrequisitos</h2>
 <ul>
 <li>Los comandos de <b>Oracle</b> necesitan conocer a qué instancia hacen referencia</li>
 <li>Para ello, necesitan las variables de entorno <code>ORACLE_HOME</code> y <code>ORACLE_SID</code>.</li>
@@ -1734,9 +1734,9 @@ export ORACLE_SID
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgcf470ab">
+<section id="slide-org565a88a">
 <div class="slide-header"></div>
-<h3 id="orgcf470ab"><span class="section-number-3">2.1</span> Autenticación de <b>SQLPlus</b></h3>
+<h3 id="org565a88a"><span class="section-number-3">2.1</span> Autenticación de <b>SQLPlus</b></h3>
 <ul>
 <li><b>SQLPlus</b> se autentica/autentifica de varias formas
 <ul>
@@ -1769,9 +1769,9 @@ export ORACLE_SID
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgfbd6d2a">
+<section id="slide-orge9f2fb0">
 <div class="slide-header"></div>
-<h3 id="orgfbd6d2a"><span class="section-number-3">2.2</span> Conexiones de <b>SQLPlus</b></h3>
+<h3 id="orge9f2fb0"><span class="section-number-3">2.2</span> Conexiones de <b>SQLPlus</b></h3>
 <ul>
 <li>Hasta ahora
 <ul>
@@ -1795,9 +1795,9 @@ export ORACLE_SID
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org916c56e">
+<section id="slide-org2c7b1bf">
 <div class="slide-header"></div>
-<h3 id="org916c56e"><span class="section-number-3">2.3</span> <code>tnsnames.ora</code></h3>
+<h3 id="org2c7b1bf"><span class="section-number-3">2.3</span> <code>tnsnames.ora</code></h3>
 
 
 
@@ -1806,9 +1806,9 @@ export ORACLE_SID
 </section>
 </section>
 <section>
-<section id="slide-orgfea5169">
+<section id="slide-orgd91a8d9">
 <div class="slide-header"></div>
-<h2 id="orgfea5169"><span class="section-number-2">3</span> Ejecución de <b>SQL</b> desde la <i>shell</i></h2>
+<h2 id="orgd91a8d9"><span class="section-number-2">3</span> Ejecución de <b>SQL</b> desde la <i>shell</i></h2>
 <ul>
 <li>El comando <code>sqlplus</code>  puede ejecutarse desde la shell</li>
 <li>Lee las órdenes SQL desde la entrada estándar.
@@ -1822,9 +1822,9 @@ export ORACLE_SID
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org25a9f68">
+<section id="slide-orgce02442">
 <div class="slide-header"></div>
-<h3 id="org25a9f68"><span class="section-number-3">3.1</span> Ejemplo <i>heredoc</i></h3>
+<h3 id="orgce02442"><span class="section-number-3">3.1</span> Ejemplo <i>heredoc</i></h3>
 <div class="org-src-container">
 
 <pre><code class="shell" >sqlplus -S alumno/alumno &lt;&lt;HEREDOC
@@ -1840,9 +1840,9 @@ HEREDOC
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgf94ef57">
+<section id="slide-orgc1a5187">
 <div class="slide-header"></div>
-<h3 id="orgf94ef57"><span class="section-number-3">3.2</span> Consultas a fichero</h3>
+<h3 id="orgc1a5187"><span class="section-number-3">3.2</span> Consultas a fichero</h3>
 <ul>
 <li>Puede enviarse la salida a un fichero</li>
 
@@ -1866,9 +1866,9 @@ less prueba.txt
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgc1d907a">
+<section id="slide-org0dc1efd">
 <div class="slide-header"></div>
-<h3 id="orgc1d907a"><span class="section-number-3">3.3</span> Formateo básico de la salida</h3>
+<h3 id="org0dc1efd"><span class="section-number-3">3.3</span> Formateo básico de la salida</h3>
 <ul>
 <li>Tiene algunas facilidades para formatear la salida (por ejemplo, para generar ficheros <b>CSV</b>)</li>
 
@@ -1897,9 +1897,9 @@ HEREDOC
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgb400840">
+<section id="slide-org172cdc8">
 <div class="slide-header"></div>
-<h3 id="orgb400840"><span class="section-number-3">3.4</span> <i>Scripts</i> <b>SQL</b> para <code>sqlplus</code></h3>
+<h3 id="org172cdc8"><span class="section-number-3">3.4</span> <i>Scripts</i> <b>SQL</b> para <code>sqlplus</code></h3>
 <ul>
 <li><code>sqlplus</code> también puede leer scripts de <code>SQL</code> con <b><code>@</code></b></li>
 
@@ -1918,15 +1918,15 @@ HEREDOC
 </section>
 </section>
 <section>
-<section id="slide-org8587029">
+<section id="slide-orgcbd48da">
 <div class="slide-header"></div>
-<h2 id="org8587029"><span class="section-number-2">4</span> Arranque y parada</h2>
+<h2 id="orgcbd48da"><span class="section-number-2">4</span> Arranque y parada</h2>
 <div class="outline-text-2" id="text-4">
 </div><div class="slide-footer"></div>
 </section>
-<section id="slide-org7441d10">
+<section id="slide-org33da3ef">
 <div class="slide-header"></div>
-<h3 id="org7441d10"><span class="section-number-3">4.1</span> <code>dbstart</code> y <code>/etc/oratab</code></h3>
+<h3 id="org33da3ef"><span class="section-number-3">4.1</span> <code>dbstart</code> y <code>/etc/oratab</code></h3>
 <ul>
 <li><b>Oracle</b> proporciona el <i>script</i> <code>dbstart</code> para arrancar instancias de base de datos</li>
 <li>Se guía por el contenido de <code>/etc/oratab</code></li>
@@ -1968,9 +1968,9 @@ asir:/var/oracle/product/12.1.0/asir_bbdd:Y
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org99ce975">
+<section id="slide-org6a3dffd">
 <div class="slide-header"></div>
-<h3 id="org99ce975"><span class="section-number-3">4.2</span> Ejecutar <b>Oracle</b> al iniciar el sistema</h3>
+<h3 id="org6a3dffd"><span class="section-number-3">4.2</span> Ejecutar <b>Oracle</b> al iniciar el sistema</h3>
 <ul>
 <li>Cada sitema operativo tiene sus formas de arrancar servicios/demonios al inicio
 <ul>
@@ -1988,9 +1988,9 @@ asir:/var/oracle/product/12.1.0/asir_bbdd:Y
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgdcd200f">
+<section id="slide-orgc88e3ef">
 <div class="slide-header"></div>
-<h3 id="orgdcd200f"><span class="section-number-3">4.3</span> <b>systemd</b></h3>
+<h3 id="orgc88e3ef"><span class="section-number-3">4.3</span> <b>systemd</b></h3>
 <ul>
 <li>Los servicios se crean con ficheros en <code>/etc/systemd/system</code>
 <ul>
@@ -2054,9 +2054,9 @@ systemctl stop SERVICIO
 </section>
 </section>
 <section>
-<section id="slide-org849adc2">
+<section id="slide-orgfa8444c">
 <div class="slide-header"></div>
-<h2 id="org849adc2"><span class="section-number-2">5</span> Operaciones periódicas</h2>
+<h2 id="orgfa8444c"><span class="section-number-2">5</span> Operaciones periódicas</h2>
 <ul>
 <li>Los sistemas operativos aportan formas para ejecutar tareas periódicamente
 <ul>
@@ -2069,9 +2069,9 @@ systemctl stop SERVICIO
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org09b19b1">
+<section id="slide-orge77c480">
 <div class="slide-header"></div>
-<h3 id="org09b19b1"><span class="section-number-3">5.1</span> <code>cron</code></h3>
+<h3 id="orge77c480"><span class="section-number-3">5.1</span> <code>cron</code></h3>
 <ul>
 <li>Es un servicio que 
 <ul>
