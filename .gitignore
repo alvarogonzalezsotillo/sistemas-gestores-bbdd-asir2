@@ -2,3 +2,9 @@ gift
 examenes
 evaluacion
 cuestionarios
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.toc
+
