@@ -67,17 +67,7 @@ El desarrollo de este ejercicio será como el de otras prácticas. La única dif
 \end{homeworkProblem}
 
 
-\begin{homeworkProblem}[: Almacena información periódicamente en la base de datos (2 puntos)]
-
-  El usuario de \textbf{Oracle} \texttt{stats} tendrá una tabla \texttt{DF} para poder guardar la salida del comando \texttt{df -k}. Esta tabla tendrá como columnas:
-  \begin{itemize}
-  \item \texttt{hora}: Hora de lanzamiento del comando
-  \item \texttt{sistema}: Nombre del tipo de sistema de ficheros
-  \item \texttt{tamano}: Tamaño en KB del sistema de ficheros
-  \item \texttt{usado}: Tamaño usado, en KB
-  \item \texttt{montado}: Punto de montaje
-  \end{itemize}
-
+\begin{homeworkProblem}[: Almacena información periódicamente en la base de datos (4 puntos)]
   % df -k | awk '{print $3}'
 
   % while read -r line
@@ -86,7 +76,26 @@ El desarrollo de este ejercicio será como el de otras prácticas. La única dif
   %     echo "Name read from file - $name"
   %     done < "$filename"
 
-  Programa un \textit{script} para que cada minuto almacene en la tabla \texttt{DF} la información del comando \texttt{df -k}
+  Programa un \textit{script} para que cada minuto almacene en la tabla \texttt{DF} la información del comando \texttt{df -k}. Esta tabla (listado \ref{lst:tabla.sql}) tendrá como columnas:
+  \begin{itemize}
+  \item \texttt{hora}: Hora de lanzamiento del comando
+  \item \texttt{sistema}: Nombre del tipo de sistema de ficheros
+  \item \texttt{tamano}: Tamaño en KB del sistema de ficheros
+  \item \texttt{usado}: Tamaño usado, en KB
+  \item \texttt{montado}: Punto de montaje
+  \end{itemize}
+
+  \begin{listadoshell}[lst:tabla.sql]{Creación de la tabla \texttt{DF}}
+  create table DF(
+    hora varchar(40),
+    sistema varchar(40),
+    tamano varchar(40),
+    usado varchar(40),
+    montado varchar(40)
+  );
+  \end{listadoshell}
+
+
 
   \begin{listadotxt}[lst:df-k]{Ejemplo de salida del comando \texttt{df -k}}
 Filesystem     1K-blocks      Used Available Use% Mounted on
@@ -104,14 +113,27 @@ tmpfs             804488        88    804400   1% /run/user/1000
 
   Pistas para realizar el \textit{script}:
   \begin{itemize}
-  \item Pasar de cadena a fecha en \textbf{Oracle}: \enlace{http://www.dba-oracle.com/f\_to\_date.htm}{http://www.dba-oracle.com/f\_to\_date.htm}
-    \item El comando \texttt{date} de \textbf{linux} puede también formatearse
+    
   \item Los \textit{heredocs} pueden contener variables: \enlace{http://superuser.com/questions/456615/how-to-pass-variables-to-a-heredoc-in-bash}{http://superuser.com/questions/456615/how-to-pass-variables-to-a-heredoc-in-bash}
-  \item Cortar columnas: \enlace{https://www.cyberciti.biz/tips/processing-the-delimited-files-using-cut-and-awk.html}{https://www.cyberciti.biz/tips/processing-the-delimited-files-using-cut-and-awk.html}
-  \item Leer líneas: \enlace{http://stackoverflow.com/questions/10929453/read-a-file-line-by-line-assigning-the-value-to-a-variable}{http://stackoverflow.com/questions/10929453/read-a-file-line-by-line-assigning-the-value-to-a-variable}
+    
+  \item Cortar columnas con \texttt{awk}: \enlace{https://www.cyberciti.biz/tips/processing-the-delimited-files-using-cut-and-awk.html}{https://www.cyberciti.biz/tips/processing-the-delimited-files-using-cut-and-awk.html}
+    
+  \item Leer líneas una por una y meterlas en una variable: \enlace{http://stackoverflow.com/questions/10929453/read-a-file-line-by-line-assigning-the-value-to-a-variable}{http://stackoverflow.com/questions/10929453/read-a-file-line-by-line-assigning-the-value-to-a-variable}
+    
+  \item Quitar la primera línea de la salida de \texttt{df -k} con el comando \texttt{tail}: \enlace{https://linuxconfig.org/commands-on-how-to-delete-a-first-line-from-a-text-file-using-bash-shell}{https://linuxconfig.org/commands-on-how-to-delete-a-first-line-from-a-text-file-using-bash-shell}
+    
+  \item El \textit{script} debería seguir los siguientes pasos:
+    \begin{enumerate}
+    \item Quitar la primera línea de la salida de \texttt{df -k} con \texttt{tail -n +2}
+      
+    \item Leer cada línea con \texttt{while} y \texttt{read}
+    \item Sacar los campos de cada línea con \texttt{awk}
+      
+    \item Ejecutar una sentencia \texttt{SQL} con los datos extraidos
+    \end{enumerate}
   \end{itemize}
 
-
+  
   
 \end{homeworkProblem}
 
@@ -120,8 +142,6 @@ tmpfs             804488        88    804400   1% /run/user/1000
 
   \begin{itemize}
   \item Programa un \textit{script} para que cada minuto envíe un correo con la información promedio del comando  \texttt{df -k}. Puedes usar como base para la consulta el listado \ref{lst:promedio.sql}.
-    
-    \item Puedes utilizar
   \item El correo se enviará a \path{alvarogonzalez.profesor@gmail.com}
   \item Indica tu nombre en el asunto del correo  
 
@@ -143,6 +163,7 @@ tmpfs             804488        88    804400   1% /run/user/1000
 \begin{itemize}
 \item El ejercicio se realizará y entregará de manera individual.
 \item El profesor comprobará el funcionamiento del sistema, hasta el dia 14 de Febrero.
+\item No importa que el correo llegue a \path{alvarogonzalez.profesor@gmail.com}, lo que importa es que se envíe (el profesor mirará los ficheros de traza para comprobarlo)
   
 \end{itemize}
 \end{document}
