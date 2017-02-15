@@ -1,0 +1,221 @@
+#+include: "../common/header.org"
+#+Title: Concurrencia y bloqueos en Oracle
+#+REVEAL_THEME: simple
+#+EXCLUDE_TAGS: no_export
+
+
+* Introducción
+- *Oracle* es un servidor de base de datos
+- Más de un usuario, y más de un cliente por usuario, puede utilizar a la vez el servidor
+- Problemas:
+  - Bloqueos de tablas
+  - Auditoría de conexiones
+
+
+* Problemas del uso concurrente
+- Idealmente, cada usuario debería poder trabajar sin notar que otros usuarios usan a la vez la base de datos
+- Debido a otras transacciones, pueden presentarse los siguientes problemas:
+
+| Lectura sucia        | /Dirty read/      | Un usuario lee datos aún no confirmados                                          |
+| Lectura no repetible | /Repeatable read/ | Un usuario lee menos filas en =select= sucesivas dentro de la misma transaccción |
+| Fila fantasma        | /Phanton read/    | Un usuario lee más filas en =select= sucesivas  dentro de la misma transacción   |
+
+** Cómo solucionar los problemas
+
+
+| Problema             | Nivel de aislamiento                      |
+|----------------------+-------------------------------------------|
+|                      | =Read Uncommited= (*Oracle* no lo tiene)  |
+| Lectura sucia        |                                           |
+|                      | =Read commited= (por defecto en *Oracle*) |
+| Lectura no repetible |                                           |
+|                      | =Repeatable read= (*Oracle* no lo tiene)  |
+| Fila fantasma        |                                           |
+|                      | =Serializable=                            |
+
+** Datos para pruebas de bloqueos
+#+begin_src sql
+create table ALUMNOS( DNI varchar(10), NOMBRE varchar(10));
+insert into ALUMNOS values ('1','Pepe');
+insert into ALUMNOS values ('2','Juan');
+insert into ALUMNOS values ('3','María');
+#+end_src
+
+** Lectura no repetible
+| Conexión 1                                                   | Conexión 2                          |
+|--------------------------------------------------------------+-------------------------------------|
+| =set isolation level read commited=                          | =set isolation level read commited= |
+| =select * from alumnos=                                      |                                     |
+|                                                              | ~delete from ALUMNOS where DNI='1'~ |
+| =select * from alumnos=                                      |                                     |
+| */La conexión 1 leerá menos alumnos en la segunda =select=/* |                                     |
+| =rollback=                                                   | =rollback=                          |
+
+
+
+** Fila fantasma
+| Conexión 1                                                   | Conexión 2                                 |
+|--------------------------------------------------------------+--------------------------------------------|
+| =set isolation level read commited=                          | =set isolation level read commited=        |
+| =select * from alumnos=                                      |                                            |
+|                                                              | ~insert into ALUMNOS values('4','Susana')~ |
+| =select * from alumnos=                                      |                                            |
+| */La conexión 1 leerá más alumnos en la segunda =select=/*   |                                            |
+| =rollback=                                                   | =rollback=                                 |
+
+
+* Bloqueos
+- La orden =set isolation level= indica a la base de datos que *bloquee* filas, campos o tablas
+- Al bloquearse, los demás usuarios no pueden acceder hasta que la transacción no termine
+  - =commit=
+  - =rollback=
+- Los bloqueos garantizan que no se producen los problemas correspondientes al nivel de aislamiento:
+  - =Read commited=
+  - =Serializable=
+
+** Lectura sucia bloqueada
+| Conexión 1                                                           | Conexión 2                                      |
+|----------------------------------------------------------------------+-------------------------------------------------|
+| =set isolation level serializable=                                   | =set isolation level serializable=              |
+| =select * from alumnos=                                              | =select * from alumnos=                         |
+|                                                                      | ~update alumnos set nombre='Pepe2' where dni=3~ |
+| ~update alumnos set nombre='Pepe1' where dni=3~                      |                                                 |
+| */ Sesión bloqueada hasta que la conexión 2 termine la transacción/* |                                                 |
+|                                                                      |                                                 |
+|                                                                      |                                                 |
+|                                                                      | =commit=                                        |
+| =commit=                                                             |                                                 |
+
+
+** Fila fantasma bloqueada
+| Conexión 1                                             | Conexión 2                                  |
+|--------------------------------------------------------+---------------------------------------------|
+| =set isolation level serializable=                     |                                             |
+| =select * from alumnos=                                |                                             |
+|                                                        | ~insert into ALUMNOS values('5','Pepe')~    |
+|                                                        | =commit=                                    |
+| ~delete from alumnos where nombre='Pepe'~              |                                             |
+| ORA-08177: can't serialize access for this transaction |                                             |
+| =rollback=                                             |                                             |
+
+* Detección y solución de bloqueos
+- Si un usuario/aplicación se comporta de manera inadecuada, puede bloquear la base de datos
+- Es necesario monitorizar los bloqueos y solucionarlos:
+  - Avisando al usuario
+  - Modificando la aplicación
+  - /Matando/ las transacciones o conexiones bloqueantes
+
+** Vista =v$session=
+- Contiene información de las sesiones 
+  - Usuario *Oracle*
+  - Usuario de sistema operativo
+  - Cliente *Oracle*
+  - Sentencia =SQL=
+  - ...
+
+** Usuarios conectados (1)
+#+begin_src sql
+select
+  username,
+  osuser,
+  terminal
+from
+  v$session
+where
+  username is not null
+order by
+  username,
+  osuser;
+#+end_src
+
+
+** Usuarios conectados (2)
+#+begin_src sql
+SELECT s.username, s.program, s.logon_time
+FROM v$session s, v$process p, sys.v_$sess_io si
+WHERE s.paddr = p.addr(+)
+AND si.sid(+) = s.sid
+AND s.type = 'USER'; 
+#+end_src
+
+** Bloqueos de la base de datos
+#+begin_src sql
+select session_id "sid",SERIAL#  "Serial",
+substr(object_name,1,20) "Object",
+  substr(os_user_name,1,10) "Terminal",
+  substr(oracle_username,1,10) "Locker",
+  nvl(lockwait,'active') "Wait",
+  decode(locked_mode,
+    2, 'row share',
+    3, 'row exclusive',
+    4, 'share',
+    5, 'share row exclusive',
+    6, 'exclusive',  'unknown') "Lockmode",
+  OBJECT_TYPE "Type",
+  spid
+FROM
+  SYS.V_$LOCKED_OBJECT A,
+  SYS.ALL_OBJECTS B,
+  SYS.V_$SESSION c
+WHERE
+  A.OBJECT_ID = B.OBJECT_ID AND
+  C.SID = A.SESSION_ID
+ORDER BY 1 ASC, 5 Desc;
+#+end_src
+
+** Descripción de usuarios bloqueados y bloqueantes
+#+begin_src sql
+select s1.username || '@' || s1.machine
+  || ' ( SID=' || s1.sid || ' )  is blocking '
+  || s2.username || '@' || s2.machine || ' ( SID=' || s2.sid || ' ) ' AS blocking_status
+  from v$lock l1, v$session s1, v$lock l2, v$session s2
+  where s1.sid=l1.sid and s2.sid=l2.sid
+  and l1.BLOCK=1 and l2.request > 0
+  and l1.id1 = l2.id1
+  and l2.id2 = l2.id2 ;
+#+end_src
+
+
+** Sentencia =SQL= bloqueada (de un =SID=)
+#+begin_src sql
+select s.sid, q.sql_text from v$sqltext q, v$session s
+where q.address = s.sql_address
+and s.sid = ELSIDBLOQUEADO
+order by piece;
+#+end_src
+
+** Sentencias =SQL= bloqueadas
+#+begin_src sql
+select s.sid, q.sql_text from v$sqltext q, v$session s
+where q.address = s.sql_address
+and s.sid in (
+  select s2.sid
+  from v$lock l1, v$session s1, v$lock l2, v$session s2
+  where s1.sid=l1.sid and s2.sid=l2.sid
+  and l1.BLOCK=1 and l2.request > 0
+  and l1.id1 = l2.id1
+  and l2.id2 = l2.id2 
+)
+order by piece;
+#+end_src
+
+** Terminar una sesión
+#+begin_src sql
+ALTER SYSTEM KILL SESSION 'sid,serial#';
+#+end_src
+
+** Terminar una sesión (sistema operativo)
+- Se debe matar el proceso identificado en el =spid=
+- Solo como último recurso, mejor =KILL SESSION=
+#+begin_src sql
+SELECT s.inst_id,
+       s.sid,
+       s.serial#,
+       p.spid,
+       s.username,
+       s.program
+FROM   gv$session s
+       JOIN gv$process p ON p.addr = s.paddr AND p.inst_id = s.inst_id
+WHERE  s.type != 'BACKGROUND';
+#+end_src 
+
