@@ -6,11 +6,54 @@
 
 * Introducción
 - *Oracle* es un servidor de base de datos
+- Idealmente, cada usuario debería poder usar la base de datos como si fuera para él en exclusiva (*ACID*)
 - Más de un usuario, y más de un cliente por usuario, puede utilizar a la vez el servidor
 - Problemas:
   - Bloqueos de tablas
   - Auditoría de conexiones
 
+* Propiedades *ACID*
+| *Atomicidad*   | Un conjunto de cambios se realiza en su totalidad, o no se realiza ninguno            |
+| *Consistencia* | Las reglas de los datos (*constraints*) se respetan                                   |
+| *aIslamiento*  | Cada usuario puede trabajar considerando que es el único que utiliza la base de datos |
+| *Durabilidad*  | Una vez grabada una modificación, persistirá aunque ocurra algún fallo posterior      |
+
+** Atomicidad
+- Algunos cambios deben producirse juntos:
+  - Ejemplo: Una transferencia bancaria debe restar de una cuenta y sumar en otra
+- El conjunto de cambios es una *transacción*
+  - Una transacción empieza cuando acaba la siguiente
+  - Termina con:
+    - *=commit=*: Los cambios se guardan
+    - *=rollback=*: Ningún cambio se guarda 
+    - Desconexión o error: generalmente, equivalente a =rollback=
+
+** Consistencia
+- Los datos deben ser coherentes con el modelo de datos
+- Se utilizan restricciones (/constraints/)
+  - =primary key=
+  - =unique=
+  - =foreign key=
+  - =ckeck=
+  - Incluso =triggers= (scripts del gestor de base de datos)
+- No hay forma de */saltarse/* una /constraint/
+  - Más allá de eliminarla (=drop=)
+
+
+** Aislamiento (/isolation/)
+- Objetivos:
+  - Cada usuario debe poder trabajar como si fuera el único
+  - Pero al mismo tiempo los datos deben poder accederse concurrentemente
+- Esto supone llegar a un compromiso
+  - Cuanto más /aislamiento/ menos /concurrencia/
+  - Cuanto más /concurrencia/ menos /aislamiento/
+- Estos problemas los trataremos más adelante
+
+
+** Durabilidad
+- Las bases de datos garantizan tras la vuelta de =commit= que
+  - Los datos han sido grabados a soporte no volátil
+  - Los datos son recuperables por este y otros usuarios
 
 * Problemas del uso concurrente
 - Idealmente, cada usuario debería poder trabajar sin notar que otros usuarios usan a la vez la base de datos
@@ -20,7 +63,7 @@
 | Lectura no repetible | /Repeatable read/ | Un usuario lee menos filas en =select= sucesivas dentro de la misma transaccción |
 | Fila fantasma        | /Phanton read/    | Un usuario lee más filas en =select= sucesivas  dentro de la misma transacción   |
 
-** Cómo solucionar los problemas
+** Nivel de aislamiento/concurrencia
 
 
 | Problema             | Nivel de aislamiento                      |
@@ -98,7 +141,20 @@ insert into ALUMNOS values ('3','María');
 | ORA-08177: can't serialize access for this transaction |                                             |
 | =rollback=                                             |                                             |
 
-* Detección y solución de bloqueos
+
+** Bloqueos no automáticos
+- Los niveles de aislamiento bloquean automáticamente filas, campos o tablas
+- Pero también pueden bloquearse manualmente
+- Bloqueo de una tabla completa
+  - =lock table TABLA=
+- Bloqueo de algunas filas:
+#+begin_src sql
+select <una consulta que devuelva algunas filas de una tabla>
+for update
+#+end_src
+
+
+* Detección y solución de sesiones bloqueadas
 - Si un usuario/aplicación se comporta de manera inadecuada, puede bloquear la base de datos
 - Es necesario monitorizar los bloqueos y solucionarlos:
   - Avisando al usuario
@@ -112,6 +168,8 @@ insert into ALUMNOS values ('3','María');
   - Cliente *Oracle*
   - Sentencia =SQL=
   - ...
+
+[[https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2088.htm#REFRN30223][Documentación de =v$session=]]
 
 ** Usuarios conectados (1)
 #+begin_src sql
