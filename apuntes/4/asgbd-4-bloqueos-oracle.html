@@ -1668,18 +1668,18 @@ body {
 <div class="creditos"><img src="../common/background.png"><a href="mailto:alvaro.gonzalezsotillo@educa.madrid.org">alvaro.gonzalezsotillo@educa.madrid.org</a></div>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Concurrencia y bloqueos en Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-02-16 jue 09:10</p>
+<section id="sec-title-slide"><h1 class="title">Concurrencia y bloqueos en Oracle</h1><h2 class="author">Álvaro González Sotillo</h2><p class="date">Created: 2017-02-22 mié 16:04</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>&Iacute;ndice</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-org2d33770">1. Introducción</a></li>
-<li><a href="#/slide-orgf0440a5">2. Propiedades <b>ACID</b></a></li>
-<li><a href="#/slide-orgcddca83">3. Problemas del uso concurrente</a></li>
-<li><a href="#/slide-orgc902fc0">4. Bloqueos</a></li>
-<li><a href="#/slide-org18a5f32">5. Detección y solución de sesiones bloqueadas</a></li>
+<li><a href="#/slide-org6f1bb90">1. Introducción</a></li>
+<li><a href="#/slide-org86bdd92">2. Propiedades <b>ACID</b></a></li>
+<li><a href="#/slide-orgcd00619">3. Problemas del uso concurrente</a></li>
+<li><a href="#/slide-org78b9ecd">4. Bloqueos</a></li>
+<li><a href="#/slide-orgfa9d736">5. Detección y solución de sesiones bloqueadas</a></li>
 </ul>
 </div>
 </div>
@@ -1687,9 +1687,9 @@ body {
 
 
 <section>
-<section id="slide-org2d33770">
+<section id="slide-org6f1bb90">
 <div class="slide-header"></div>
-<h2 id="org2d33770"><span class="section-number-2">1</span> Introducción</h2>
+<h2 id="org6f1bb90"><span class="section-number-2">1</span> Introducción</h2>
 <ul>
 <li><b>Oracle</b> es un servidor de base de datos</li>
 <li>Idealmente, cada usuario debería poder usar la base de datos como si fuera para él en exclusiva (<b>ACID</b>)</li>
@@ -1707,9 +1707,9 @@ body {
 </section>
 </section>
 <section>
-<section id="slide-orgf0440a5">
+<section id="slide-org86bdd92">
 <div class="slide-header"></div>
-<h2 id="orgf0440a5"><span class="section-number-2">2</span> Propiedades <b>ACID</b></h2>
+<h2 id="org86bdd92"><span class="section-number-2">2</span> Propiedades <b>ACID</b></h2>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1743,9 +1743,9 @@ body {
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org4a0b0ed">
+<section id="slide-org2dd0f5f">
 <div class="slide-header"></div>
-<h3 id="org4a0b0ed"><span class="section-number-3">2.1</span> Atomicidad</h3>
+<h3 id="org2dd0f5f"><span class="section-number-3">2.1</span> Atomicidad</h3>
 <ul>
 <li>Algunos cambios deben producirse juntos:
 <ul>
@@ -1769,9 +1769,9 @@ body {
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org4f9509d">
+<section id="slide-org22fbbec">
 <div class="slide-header"></div>
-<h3 id="org4f9509d"><span class="section-number-3">2.2</span> Consistencia</h3>
+<h3 id="org22fbbec"><span class="section-number-3">2.2</span> Consistencia</h3>
 <ul>
 <li>Los datos deben ser coherentes con el modelo de datos</li>
 <li>Se utilizan restricciones (<i>constraints</i>)
@@ -1794,9 +1794,9 @@ body {
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgb9b123d">
+<section id="slide-orgdf9335c">
 <div class="slide-header"></div>
-<h3 id="orgb9b123d"><span class="section-number-3">2.3</span> Aislamiento (<i>isolation</i>)</h3>
+<h3 id="orgdf9335c"><span class="section-number-3">2.3</span> Aislamiento (<i>isolation</i>)</h3>
 <ul>
 <li>Objetivos:
 <ul>
@@ -1817,9 +1817,9 @@ body {
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orge9631e7">
+<section id="slide-org686387d">
 <div class="slide-header"></div>
-<h3 id="orge9631e7"><span class="section-number-3">2.4</span> Durabilidad</h3>
+<h3 id="org686387d"><span class="section-number-3">2.4</span> Durabilidad</h3>
 <ul>
 <li>Las bases de datos garantizan tras la vuelta de <code>commit</code> que
 <ul>
@@ -1834,9 +1834,9 @@ body {
 </section>
 </section>
 <section>
-<section id="slide-orgcddca83">
+<section id="slide-orgcd00619">
 <div class="slide-header"></div>
-<h2 id="orgcddca83"><span class="section-number-2">3</span> Problemas del uso concurrente</h2>
+<h2 id="orgcd00619"><span class="section-number-2">3</span> Problemas del uso concurrente</h2>
 <ul>
 <li>Idealmente, cada usuario debería poder trabajar sin notar que otros usuarios usan a la vez la base de datos</li>
 <li>Debido a otras transacciones, pueden presentarse los siguientes problemas:</li>
@@ -1863,7 +1863,7 @@ body {
 <tr>
 <td class="org-left">Lectura no repetible</td>
 <td class="org-left"><i>Repeatable read</i></td>
-<td class="org-left">Un usuario lee menos filas en <code>select</code> sucesivas dentro de la misma transaccción</td>
+<td class="org-left">Un usuario lee menos filas (o filas cambiadas) en <code>select</code> sucesivas dentro de la misma transaccción</td>
 </tr>
 
 <tr>
@@ -1876,9 +1876,9 @@ body {
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org758ef74">
+<section id="slide-org547a154">
 <div class="slide-header"></div>
-<h3 id="org758ef74"><span class="section-number-3">3.1</span> Nivel de aislamiento/concurrencia</h3>
+<h3 id="org547a154"><span class="section-number-3">3.1</span> Nivel de aislamiento/concurrencia</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1933,9 +1933,9 @@ body {
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org69d2534">
+<section id="slide-org5a87d49">
 <div class="slide-header"></div>
-<h3 id="org69d2534"><span class="section-number-3">3.2</span> Datos para pruebas de bloqueos</h3>
+<h3 id="org5a87d49"><span class="section-number-3">3.2</span> Datos para pruebas de bloqueos</h3>
 <div class="org-src-container">
 
 <pre><code class="sql" >create table ALUMNOS( DNI varchar(10), NOMBRE varchar(10));
@@ -1945,11 +1945,13 @@ insert into ALUMNOS values ('3','María');
 </code></pre>
 </div>
 
+
+
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org72e4f2a">
+<section id="slide-org77d675c">
 <div class="slide-header"></div>
-<h3 id="org72e4f2a"><span class="section-number-3">3.3</span> Lectura no repetible</h3>
+<h3 id="org77d675c"><span class="section-number-3">3.3</span> Lectura no repetible</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -1966,8 +1968,18 @@ insert into ALUMNOS values ('3','María');
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>set isolation level read commited</code></td>
-<td class="org-left"><code>set isolation level read commited</code></td>
+<td class="org-left"><code>set transaction isolation level read committed</code></td>
+<td class="org-left"><code>set transaction isolation level read committed</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>select * from alumnos</code></td>
+<td class="org-left"><code>select * from alumnos</code></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>update alumnos set nombre='Pepe2' where dni=3</code></td>
 </tr>
 
 <tr>
@@ -1976,8 +1988,13 @@ insert into ALUMNOS values ('3','María');
 </tr>
 
 <tr>
+<td class="org-left"><i>Aún no se ve el cambio, sería una lectura sucia</i></td>
 <td class="org-left">&#xa0;</td>
-<td class="org-left"><code>delete from ALUMNOS where DNI='1'</code></td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>commit</code></td>
 </tr>
 
 <tr>
@@ -1986,13 +2003,13 @@ insert into ALUMNOS values ('3','María');
 </tr>
 
 <tr>
-<td class="org-left"><b><i>La conexión 1 leerá menos alumnos en la segunda <code>select</code></i></b></td>
+<td class="org-left"><i>Ahora se ve el cambio, es una lectura no repetible</i></td>
 <td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
 <td class="org-left"><code>rollback</code></td>
-<td class="org-left"><code>rollback</code></td>
+<td class="org-left">&#xa0;</td>
 </tr>
 </tbody>
 </table>
@@ -2001,9 +2018,9 @@ insert into ALUMNOS values ('3','María');
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org3e62b90">
+<section id="slide-org5ca150d">
 <div class="slide-header"></div>
-<h3 id="org3e62b90"><span class="section-number-3">3.4</span> Fila fantasma</h3>
+<h3 id="org5ca150d"><span class="section-number-3">3.4</span> Fila fantasma</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -2035,18 +2052,23 @@ insert into ALUMNOS values ('3','María');
 </tr>
 
 <tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left"><code>commit</code></td>
+</tr>
+
+<tr>
 <td class="org-left"><code>select * from alumnos</code></td>
 <td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
-<td class="org-left"><b><i>La conexión 1 leerá más alumnos en la segunda <code>select</code></i></b></td>
+<td class="org-left"><i>La conexión 1 leerá más alumnos en la segunda <code>select</code>, una fila fantasma</i></td>
 <td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
 <td class="org-left"><code>rollback</code></td>
-<td class="org-left"><code>rollback</code></td>
+<td class="org-left">&#xa0;</td>
 </tr>
 </tbody>
 </table>
@@ -2056,9 +2078,9 @@ insert into ALUMNOS values ('3','María');
 </section>
 </section>
 <section>
-<section id="slide-orgc902fc0">
+<section id="slide-org78b9ecd">
 <div class="slide-header"></div>
-<h2 id="orgc902fc0"><span class="section-number-2">4</span> Bloqueos</h2>
+<h2 id="org78b9ecd"><span class="section-number-2">4</span> Bloqueos</h2>
 <ul>
 <li>La orden <code>set isolation level</code> indica a la base de datos que <b>bloquee</b> filas, campos o tablas</li>
 <li>Al bloquearse, los demás usuarios no pueden acceder hasta que la transacción no termine
@@ -2076,11 +2098,12 @@ insert into ALUMNOS values ('3','María');
 
 </ul>
 
+
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgdc76a4c">
+<section id="slide-org5cef365">
 <div class="slide-header"></div>
-<h3 id="orgdc76a4c"><span class="section-number-3">4.1</span> Lectura sucia bloqueada</h3>
+<h3 id="org5cef365"><span class="section-number-3">4.1</span> Lectura no repetible bloqueada</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -2097,13 +2120,13 @@ insert into ALUMNOS values ('3','María');
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>set isolation level serializable</code></td>
-<td class="org-left"><code>set isolation level serializable</code></td>
+<td class="org-left"><code>set transaction isolation level serializable</code></td>
+<td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
 <td class="org-left"><code>select * from alumnos</code></td>
-<td class="org-left"><code>select * from alumnos</code></td>
+<td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
@@ -2112,17 +2135,12 @@ insert into ALUMNOS values ('3','María');
 </tr>
 
 <tr>
-<td class="org-left"><code>update alumnos set nombre='Pepe1' where dni=3</code></td>
+<td class="org-left"><code>select * from alumnos</code></td>
 <td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
-<td class="org-left"><b>/ Sesión bloqueada hasta que la conexión 2 termine la transacción/</b></td>
-<td class="org-left">&#xa0;</td>
-</tr>
-
-<tr>
-<td class="org-left">&#xa0;</td>
+<td class="org-left"><i>Aún no se ve el cambio, sería una lectura sucia</i></td>
 <td class="org-left">&#xa0;</td>
 </tr>
 
@@ -2137,7 +2155,17 @@ insert into ALUMNOS values ('3','María');
 </tr>
 
 <tr>
-<td class="org-left"><code>commit</code></td>
+<td class="org-left"><code>select * from alumnos</code></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><i>El cambio no se ve</i></td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>rollback</code></td>
 <td class="org-left">&#xa0;</td>
 </tr>
 </tbody>
@@ -2146,9 +2174,9 @@ insert into ALUMNOS values ('3','María');
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org27e9813">
+<section id="slide-orgcbbe813">
 <div class="slide-header"></div>
-<h3 id="org27e9813"><span class="section-number-3">4.2</span> Fila fantasma bloqueada</h3>
+<h3 id="orgcbbe813"><span class="section-number-3">4.2</span> Fila fantasma bloqueada</h3>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -2165,7 +2193,7 @@ insert into ALUMNOS values ('3','María');
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>set isolation level serializable</code></td>
+<td class="org-left"><code>set transaction isolation level serializable</code></td>
 <td class="org-left">&#xa0;</td>
 </tr>
 
@@ -2204,9 +2232,9 @@ insert into ALUMNOS values ('3','María');
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org2861863">
+<section id="slide-org2cdf3d2">
 <div class="slide-header"></div>
-<h3 id="org2861863"><span class="section-number-3">4.3</span> Bloqueos no automáticos</h3>
+<h3 id="org2cdf3d2"><span class="section-number-3">4.3</span> Bloqueos no automáticos</h3>
 <ul>
 <li>Los niveles de aislamiento bloquean automáticamente filas, campos o tablas</li>
 <li>Pero también pueden bloquearse manualmente</li>
@@ -2230,9 +2258,9 @@ for update
 </section>
 </section>
 <section>
-<section id="slide-org18a5f32">
+<section id="slide-orgfa9d736">
 <div class="slide-header"></div>
-<h2 id="org18a5f32"><span class="section-number-2">5</span> Detección y solución de sesiones bloqueadas</h2>
+<h2 id="orgfa9d736"><span class="section-number-2">5</span> Detección y solución de sesiones bloqueadas</h2>
 <ul>
 <li>Si un usuario/aplicación se comporta de manera inadecuada, puede bloquear la base de datos</li>
 <li>Es necesario monitorizar los bloqueos y solucionarlos:
@@ -2247,11 +2275,11 @@ for update
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgd1fd97d">
+<section id="slide-org6369fdb">
 <div class="slide-header"></div>
-<h3 id="orgd1fd97d"><span class="section-number-3">5.1</span> Vista <code>v$session</code></h3>
+<h3 id="org6369fdb"><span class="section-number-3">5.1</span> Vistas de sesiones</h3>
 <ul>
-<li>Contiene información de las sesiones 
+<li>Contienen información de las sesiones 
 <ul>
 <li>Usuario <b>Oracle</b></li>
 <li>Usuario de sistema operativo</li>
@@ -2262,16 +2290,38 @@ for update
 </ul></li>
 
 </ul>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
-<p>
-<a href="https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2088.htm#REFRN30223">Documentación de <code>v$session</code></a>
-</p>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left"><a href="https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2088.htm#REFRN30223"><code>v_$session</code></a></td>
+<td class="org-left"><a href="https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2022.htm#REFRN30186"><code>v_$process</code></a></td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://docs.oracle.com/cd/B13789_01/server.101/b10755/dynviews_2113.htm"><code>V_$SQLTEXT</code></a></td>
+<td class="org-left"><a href="https://docs.oracle.com/cd/B12037_01/server.101/b10755/dynviews_1123.htm"><code>V_$LOCK</code></a></td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://docs.oracle.com/database/121/REFRN/GUID-3F9F26AA-197F-4D36-939E-FAF1EFD8C0DD.htm#REFRN30125"><code>V_$LOCKED_OBJECT</code></a></td>
+<td class="org-left"><a href="https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2086.htm#REFRN30231"><code>V_$SESS_IO</code></a></td>
+</tr>
+</tbody>
+</table>
+
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgb8c7bec">
+<section id="slide-org55ca791">
 <div class="slide-header"></div>
-<h3 id="orgb8c7bec"><span class="section-number-3">5.2</span> Usuarios conectados (1)</h3>
+<h3 id="org55ca791"><span class="section-number-3">5.2</span> Usuarios conectados (1)</h3>
 <div class="org-src-container">
 
 <pre><code class="sql" >select
@@ -2279,7 +2329,7 @@ for update
   osuser,
   terminal
 from
-  v$session
+  sys.v_$session
 where
   username is not null
 order by
@@ -2291,13 +2341,13 @@ order by
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org28ea1e0">
+<section id="slide-orgc3207f7">
 <div class="slide-header"></div>
-<h3 id="org28ea1e0"><span class="section-number-3">5.3</span> Usuarios conectados (2)</h3>
+<h3 id="orgc3207f7"><span class="section-number-3">5.3</span> Usuarios conectados (2)</h3>
 <div class="org-src-container">
 
 <pre><code class="sql" >SELECT s.username, s.program, s.logon_time
-FROM v$session s, v$process p, sys.v_$sess_io si
+FROM sys.v_$session s, sys.v_$process p, sys.v_$sess_io si
 WHERE s.paddr = p.addr(+)
 AND si.sid(+) = s.sid
 AND s.type = 'USER';
@@ -2306,9 +2356,9 @@ AND s.type = 'USER';
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-orgdfa22d3">
+<section id="slide-orgd409b4a">
 <div class="slide-header"></div>
-<h3 id="orgdfa22d3"><span class="section-number-3">5.4</span> Bloqueos de la base de datos</h3>
+<h3 id="orgd409b4a"><span class="section-number-3">5.4</span> Bloqueos de la base de datos</h3>
 <div class="org-src-container">
 
 <pre><code class="sql" >select session_id "sid",SERIAL#  "Serial",
@@ -2337,15 +2387,15 @@ ORDER BY 1 ASC, 5 Desc;
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org6eb4042">
+<section id="slide-org206b586">
 <div class="slide-header"></div>
-<h3 id="org6eb4042"><span class="section-number-3">5.5</span> Descripción de usuarios bloqueados y bloqueantes</h3>
+<h3 id="org206b586"><span class="section-number-3">5.5</span> Descripción de usuarios bloqueados y bloqueantes</h3>
 <div class="org-src-container">
 
 <pre><code class="sql" >select s1.username || '@' || s1.machine
   || ' ( SID=' || s1.sid || ' )  is blocking '
   || s2.username || '@' || s2.machine || ' ( SID=' || s2.sid || ' ) ' AS blocking_status
-  from v$lock l1, v$session s1, v$lock l2, v$session s2
+  from v_$lock l1, v_$session s1, v_$lock l2, v_$session s2
   where s1.sid=l1.sid and s2.sid=l2.sid
   and l1.BLOCK=1 and l2.request > 0
   and l1.id1 = l2.id1
@@ -2356,12 +2406,12 @@ ORDER BY 1 ASC, 5 Desc;
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org960be1a">
+<section id="slide-orgb621a0b">
 <div class="slide-header"></div>
-<h3 id="org960be1a"><span class="section-number-3">5.6</span> Sentencia <code>SQL</code> bloqueada (de un <code>SID</code>)</h3>
+<h3 id="orgb621a0b"><span class="section-number-3">5.6</span> Sentencia <code>SQL</code> bloqueada (de un <code>SID</code>)</h3>
 <div class="org-src-container">
 
-<pre><code class="sql" >select s.sid, q.sql_text from v$sqltext q, v$session s
+<pre><code class="sql" >select s.sid, q.sql_text from v_$sqltext q, v_$session s
 where q.address = s.sql_address
 and s.sid = ELSIDBLOQUEADO
 order by piece;
@@ -2370,16 +2420,16 @@ order by piece;
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org3a678bd">
+<section id="slide-org58d6bb3">
 <div class="slide-header"></div>
-<h3 id="org3a678bd"><span class="section-number-3">5.7</span> Sentencias <code>SQL</code> bloqueadas</h3>
+<h3 id="org58d6bb3"><span class="section-number-3">5.7</span> Sentencias <code>SQL</code> bloqueadas</h3>
 <div class="org-src-container">
 
-<pre><code class="sql" >select s.sid, q.sql_text from v$sqltext q, v$session s
+<pre><code class="sql" >select s.sid, q.sql_text from v_$sqltext q, v_$session s
 where q.address = s.sql_address
 and s.sid in (
   select s2.sid
-  from v$lock l1, v$session s1, v$lock l2, v$session s2
+  from v_$lock l1, v_$session s1, v_$lock l2, v_$session s2
   where s1.sid=l1.sid and s2.sid=l2.sid
   and l1.BLOCK=1 and l2.request > 0
   and l1.id1 = l2.id1
@@ -2391,25 +2441,9 @@ order by piece;
 
 <div class="slide-footer"></div>
 </section>
-<section id="slide-org006ff7c">
+<section id="slide-org2d09c01">
 <div class="slide-header"></div>
-<h3 id="org006ff7c"><span class="section-number-3">5.8</span> Terminar una sesión</h3>
-<div class="org-src-container">
-
-<pre><code class="sql" >ALTER SYSTEM KILL SESSION 'sid,serial#';
-</code></pre>
-</div>
-
-<div class="slide-footer"></div>
-</section>
-<section id="slide-org0743129">
-<div class="slide-header"></div>
-<h3 id="org0743129"><span class="section-number-3">5.9</span> Terminar una sesión (sistema operativo)</h3>
-<ul>
-<li>Se debe matar el proceso identificado en el <code>spid</code></li>
-<li>Solo como último recurso, mejor <code>KILL SESSION</code></li>
-
-</ul>
+<h3 id="org2d09c01"><span class="section-number-3">5.8</span> Terminar una sesión</h3>
 <div class="org-src-container">
 
 <pre><code class="sql" >SELECT s.inst_id,
@@ -2418,11 +2452,28 @@ order by piece;
        p.spid,
        s.username,
        s.program
-FROM   gv$session s
-       JOIN gv$process p ON p.addr = s.paddr AND p.inst_id = s.inst_id
+FROM   gv_$session s
+       JOIN gv_$process p ON p.addr = s.paddr AND p.inst_id = s.inst_id
 WHERE  s.type != 'BACKGROUND';
 </code></pre>
 </div>
+
+<div class="org-src-container">
+
+<pre><code class="sql" >ALTER SYSTEM KILL SESSION 'sid,serial#';
+</code></pre>
+</div>
+
+<div class="slide-footer"></div>
+</section>
+<section id="slide-orgcaad1ce">
+<div class="slide-header"></div>
+<h3 id="orgcaad1ce"><span class="section-number-3">5.9</span> Terminar una sesión (sistema operativo)</h3>
+<ul>
+<li>Se debe matar el proceso identificado en el <code>spid</code> (<i>system process identifier</i>)</li>
+<li>Solo como último recurso, mejor <code>KILL SESSION</code></li>
+
+</ul>
 <div class="slide-footer"></div>
 </section>
 </section>

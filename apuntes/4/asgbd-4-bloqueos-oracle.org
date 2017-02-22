@@ -59,9 +59,9 @@
 - Idealmente, cada usuario debería poder trabajar sin notar que otros usuarios usan a la vez la base de datos
 - Debido a otras transacciones, pueden presentarse los siguientes problemas:
 
-| Lectura sucia        | /Dirty read/      | Un usuario lee datos aún no confirmados                                          |
-| Lectura no repetible | /Repeatable read/ | Un usuario lee menos filas en =select= sucesivas dentro de la misma transaccción |
-| Fila fantasma        | /Phanton read/    | Un usuario lee más filas en =select= sucesivas  dentro de la misma transacción   |
+| Lectura sucia        | /Dirty read/      | Un usuario lee datos aún no confirmados                                                              |
+| Lectura no repetible | /Repeatable read/ | Un usuario lee menos filas (o filas cambiadas) en =select= sucesivas dentro de la misma transaccción |
+| Fila fantasma        | /Phanton read/    | Un usuario lee más filas en =select= sucesivas  dentro de la misma transacción                       |
 
 ** Nivel de aislamiento/concurrencia
 
@@ -84,27 +84,33 @@ insert into ALUMNOS values ('2','Juan');
 insert into ALUMNOS values ('3','María');
 #+end_src
 
+
+
 ** Lectura no repetible
-| Conexión 1                                                   | Conexión 2                          |
-|--------------------------------------------------------------+-------------------------------------|
-| =set isolation level read commited=                          | =set isolation level read commited= |
-| =select * from alumnos=                                      |                                     |
-|                                                              | ~delete from ALUMNOS where DNI='1'~ |
-| =select * from alumnos=                                      |                                     |
-| */La conexión 1 leerá menos alumnos en la segunda =select=/* |                                     |
-| =rollback=                                                   | =rollback=                          |
+| Conexión 1                                           | Conexión 2                                       |
+|------------------------------------------------------+--------------------------------------------------|
+| =set transaction isolation level read committed=     | =set transaction isolation level read committed= |
+| =select * from alumnos=                              | =select * from alumnos=                          |
+|                                                      | ~update alumnos set nombre='Pepe2' where dni=3~  |
+| ~select * from alumnos~                              |                                                  |
+| /Aún no se ve el cambio, sería una lectura sucia/    |                                                  |
+|                                                      | =commit=                                         |
+| ~select * from alumnos~                              |                                                  |
+| /Ahora se ve el cambio, es una lectura no repetible/ |                                                  |
+| =rollback=                                           |                                                  |
 
 
 
 ** Fila fantasma
-| Conexión 1                                                   | Conexión 2                                 |
-|--------------------------------------------------------------+--------------------------------------------|
-| =set isolation level read commited=                          | =set isolation level read commited=        |
-| =select * from alumnos=                                      |                                            |
-|                                                              | ~insert into ALUMNOS values('4','Susana')~ |
-| =select * from alumnos=                                      |                                            |
-| */La conexión 1 leerá más alumnos en la segunda =select=/*   |                                            |
-| =rollback=                                                   | =rollback=                                 |
+| Conexión 1                                                                  | Conexión 2                                 |
+|-----------------------------------------------------------------------------+--------------------------------------------|
+| =set isolation level read commited=                                         | =set isolation level read commited=        |
+| =select * from alumnos=                                                     |                                            |
+|                                                                             | ~insert into ALUMNOS values('4','Susana')~ |
+|                                                                             | =commit=                                   |
+| =select * from alumnos=                                                     |                                            |
+| /La conexión 1 leerá más alumnos en la segunda =select=, una fila fantasma/ |                                            |
+| =rollback=                                                                  |                                            |
 
 
 * Bloqueos
@@ -116,24 +122,26 @@ insert into ALUMNOS values ('3','María');
   - =Read commited=
   - =Serializable=
 
-** Lectura sucia bloqueada
-| Conexión 1                                                           | Conexión 2                                      |
-|----------------------------------------------------------------------+-------------------------------------------------|
-| =set isolation level serializable=                                   | =set isolation level serializable=              |
-| =select * from alumnos=                                              | =select * from alumnos=                         |
-|                                                                      | ~update alumnos set nombre='Pepe2' where dni=3~ |
-| ~update alumnos set nombre='Pepe1' where dni=3~                      |                                                 |
-| */ Sesión bloqueada hasta que la conexión 2 termine la transacción/* |                                                 |
-|                                                                      |                                                 |
-|                                                                      |                                                 |
-|                                                                      | =commit=                                        |
-| =commit=                                                             |                                                 |
+
+** Lectura no repetible bloqueada
+| Conexión 1                                        | Conexión 2                                      |
+|---------------------------------------------------+-------------------------------------------------|
+| =set transaction isolation level serializable=    |                                                 |
+| =select * from alumnos=                           |                                                 |
+|                                                   | ~update alumnos set nombre='Pepe2' where dni=3~ |
+| ~select * from alumnos~                           |                                                 |
+| /Aún no se ve el cambio, sería una lectura sucia/ |                                                 |
+|                                                   |                                                 |
+|                                                   | =commit=                                        |
+| ~select * from alumnos~                           |                                                 |
+| /El cambio no se ve/                              |                                                 |
+| =rollback=                                        |                                                 |
 
 
 ** Fila fantasma bloqueada
 | Conexión 1                                             | Conexión 2                                  |
 |--------------------------------------------------------+---------------------------------------------|
-| =set isolation level serializable=                     |                                             |
+| =set transaction isolation level serializable=          |                                             |
 | =select * from alumnos=                                |                                             |
 |                                                        | ~insert into ALUMNOS values('5','Pepe')~    |
 |                                                        | =commit=                                    |
@@ -161,15 +169,17 @@ for update
   - Modificando la aplicación
   - /Matando/ las transacciones o conexiones bloqueantes
 
-** Vista =v$session=
-- Contiene información de las sesiones 
+** Vistas de sesiones
+- Contienen información de las sesiones 
   - Usuario *Oracle*
   - Usuario de sistema operativo
   - Cliente *Oracle*
   - Sentencia =SQL=
   - ...
+| [[https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2088.htm#REFRN30223][=v_$session=]]       | [[https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2022.htm#REFRN30186][=v_$process=]] |
+| [[https://docs.oracle.com/cd/B13789_01/server.101/b10755/dynviews_2113.htm][=V_$SQLTEXT=]]       | [[https://docs.oracle.com/cd/B12037_01/server.101/b10755/dynviews_1123.htm][=V_$LOCK=]]    |
+| [[https://docs.oracle.com/database/121/REFRN/GUID-3F9F26AA-197F-4D36-939E-FAF1EFD8C0DD.htm#REFRN30125][=V_$LOCKED_OBJECT=]] | [[https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2086.htm#REFRN30231][=V_$SESS_IO=]] |
 
-[[https://docs.oracle.com/cd/B19306_01/server.102/b14237/dynviews_2088.htm#REFRN30223][Documentación de =v$session=]]
 
 ** Usuarios conectados (1)
 #+begin_src sql
@@ -178,7 +188,7 @@ select
   osuser,
   terminal
 from
-  v$session
+  sys.v_$session
 where
   username is not null
 order by
@@ -190,7 +200,7 @@ order by
 ** Usuarios conectados (2)
 #+begin_src sql
 SELECT s.username, s.program, s.logon_time
-FROM v$session s, v$process p, sys.v_$sess_io si
+FROM sys.v_$session s, sys.v_$process p, sys.v_$sess_io si
 WHERE s.paddr = p.addr(+)
 AND si.sid(+) = s.sid
 AND s.type = 'USER'; 
@@ -226,7 +236,7 @@ ORDER BY 1 ASC, 5 Desc;
 select s1.username || '@' || s1.machine
   || ' ( SID=' || s1.sid || ' )  is blocking '
   || s2.username || '@' || s2.machine || ' ( SID=' || s2.sid || ' ) ' AS blocking_status
-  from v$lock l1, v$session s1, v$lock l2, v$session s2
+  from v_$lock l1, v_$session s1, v_$lock l2, v_$session s2
   where s1.sid=l1.sid and s2.sid=l2.sid
   and l1.BLOCK=1 and l2.request > 0
   and l1.id1 = l2.id1
@@ -236,7 +246,7 @@ select s1.username || '@' || s1.machine
 
 ** Sentencia =SQL= bloqueada (de un =SID=)
 #+begin_src sql
-select s.sid, q.sql_text from v$sqltext q, v$session s
+select s.sid, q.sql_text from v_$sqltext q, v_$session s
 where q.address = s.sql_address
 and s.sid = ELSIDBLOQUEADO
 order by piece;
@@ -244,11 +254,11 @@ order by piece;
 
 ** Sentencias =SQL= bloqueadas
 #+begin_src sql
-select s.sid, q.sql_text from v$sqltext q, v$session s
+select s.sid, q.sql_text from v_$sqltext q, v_$session s
 where q.address = s.sql_address
 and s.sid in (
   select s2.sid
-  from v$lock l1, v$session s1, v$lock l2, v$session s2
+  from v_$lock l1, v_$session s1, v_$lock l2, v_$session s2
   where s1.sid=l1.sid and s2.sid=l2.sid
   and l1.BLOCK=1 and l2.request > 0
   and l1.id1 = l2.id1
@@ -259,21 +269,22 @@ order by piece;
 
 ** Terminar una sesión
 #+begin_src sql
-ALTER SYSTEM KILL SESSION 'sid,serial#';
-#+end_src
-
-** Terminar una sesión (sistema operativo)
-- Se debe matar el proceso identificado en el =spid=
-- Solo como último recurso, mejor =KILL SESSION=
-#+begin_src sql
 SELECT s.inst_id,
        s.sid,
        s.serial#,
        p.spid,
        s.username,
        s.program
-FROM   gv$session s
-       JOIN gv$process p ON p.addr = s.paddr AND p.inst_id = s.inst_id
+FROM   gv_$session s
+       JOIN gv_$process p ON p.addr = s.paddr AND p.inst_id = s.inst_id
 WHERE  s.type != 'BACKGROUND';
-#+end_src 
+#+end_src
+
+#+begin_src sql
+ALTER SYSTEM KILL SESSION 'sid,serial#';
+#+end_src
+
+** Terminar una sesión (sistema operativo)
+- Se debe matar el proceso identificado en el =spid= (/system process identifier/)
+- Solo como último recurso, mejor =KILL SESSION=
 
