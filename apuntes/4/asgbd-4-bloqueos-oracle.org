@@ -139,15 +139,15 @@ insert into ALUMNOS values ('3','María');
 
 
 ** Fila fantasma bloqueada
-| Conexión 1                                             | Conexión 2                                  |
-|--------------------------------------------------------+---------------------------------------------|
-| =set transaction isolation level serializable=          |                                             |
-| =select * from alumnos=                                |                                             |
-|                                                        | ~insert into ALUMNOS values('5','Pepe')~    |
-|                                                        | =commit=                                    |
-| ~delete from alumnos where nombre='Pepe'~              |                                             |
-| ORA-08177: can't serialize access for this transaction |                                             |
-| =rollback=                                             |                                             |
+| Conexión 1                                             | Conexión 2                               |
+|--------------------------------------------------------+------------------------------------------|
+| =set transaction isolation level serializable=         |                                          |
+|                                                        | ~insert into ALUMNOS values('5','Pepe')~ |
+|                                                        | =commit=                                 |
+| =select * from alumnos=                                |                                          |
+| ~delete from alumnos where nombre='Pepe'~              |                                          |
+| ORA-08177: can't serialize access for this transaction |                                          |
+| =rollback=                                             |                                          |
 
 
 ** Bloqueos no automáticos
