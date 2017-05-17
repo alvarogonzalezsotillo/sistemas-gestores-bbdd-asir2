@@ -44,7 +44,8 @@ El desarrollo de este ejercicio será como el de otras prácticas. La única dif
   \item Oracle se iniciará solo si se indica en el fichero \texttt{/etc/oratab}
   
   \item En el fichero \texttt{/home/alumno/logs/oracle.log} se dejará una traza de cuando se arrancó y se paró la máquina, y si fue necesario arrancar o parar \textit{Oracle}. Por ejemplo:
-    \begin{listadotxt}[lst:yoracle.log]{Ejemplo de \texttt{/home/alumno/logs/oracle.log} cuando \textbf{Oracle} se arranca}
+    
+    \begin{listadotxt}{Ejemplo de \texttt{/home/alumno/logs/oracle.log} cuando \textbf{Oracle} se arranca}{lst:yoracle.log}
       2017-02-10-12:40:00 - Máquina arrancada
       2017-02-10-12:40:01 - Oracle arrancando porque /etc/oratab indica Y
       2017-02-10-12:40:20 - Oracle arrancado
@@ -53,7 +54,7 @@ El desarrollo de este ejercicio será como el de otras prácticas. La única dif
       2017-02-10-12:41:20 - Oracle parado
     \end{listadotxt}
 
-    \begin{listadotxt}[lst:noracle.log]{Ejemplo de \texttt{/home/alumno/logs/oracle.log} cuando \textbf{Oracle} no se arranca}
+    \begin{listadotxt}{Ejemplo de \texttt{/home/alumno/logs/oracle.log} cuando \textbf{Oracle} no se arranca}{lst:noracle.log}
       2017-02-10-12:40:00 - Máquina arrancada
       2017-02-10-12:40:01 - Oracle no se arranca porque /etc/oratab indica N
       2017-02-10-12:41:00 - Máquina parando
@@ -85,7 +86,7 @@ El desarrollo de este ejercicio será como el de otras prácticas. La única dif
   \item \texttt{montado}: Punto de montaje
   \end{itemize}
 
-  \begin{listadoshell}[lst:tabla.sql]{Creación de la tabla \texttt{DF}}
+  \begin{listadoshell}{Creación de la tabla \texttt{DF}}{lst:tabla.sql}
   create table DF(
     hora varchar(40),
     sistema varchar(40),
@@ -97,7 +98,7 @@ El desarrollo de este ejercicio será como el de otras prácticas. La única dif
 
 
 
-  \begin{listadotxt}[lst:df-k]{Ejemplo de salida del comando \texttt{df -k}}
+  \begin{listadotxt}{Ejemplo de salida del comando \texttt{df -k}}{lst:df-k}
 Filesystem     1K-blocks      Used Available Use% Mounted on
 udev             4002180         0   4002180   0% /dev
 tmpfs             804488     19756    784732   3% /run
@@ -146,7 +147,7 @@ tmpfs             804488        88    804400   1% /run/user/1000
   \item Indica tu nombre en el asunto del correo  
 
 
-\begin{listadoshell}[lst:promedio.sql]{Consulta tipo para extraer información promedio}
+\begin{listadoshell}{Consulta tipo para extraer información promedio}{lst:promedio.sql}
   select 
     sistema, avg(tamano), avg(usado), montado
   from 

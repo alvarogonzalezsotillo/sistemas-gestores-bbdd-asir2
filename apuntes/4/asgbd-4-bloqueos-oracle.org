@@ -219,8 +219,7 @@ substr(object_name,1,20) "Object",
     4, 'share',
     5, 'share row exclusive',
     6, 'exclusive',  'unknown') "Lockmode",
-  OBJECT_TYPE "Type",
-  spid
+  OBJECT_TYPE "Type"
 FROM
   SYS.V_$LOCKED_OBJECT A,
   SYS.ALL_OBJECTS B,
