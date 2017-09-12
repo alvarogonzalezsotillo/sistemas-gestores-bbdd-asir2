@@ -1,0 +1,6 @@
+* Descargas
+- Fedora
+  - https://download.fedoraproject.org/pub/fedora/linux/releases/26/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-26-1.5.iso
+- Oracle xe
+  - Se necesita una cuenta /gratuita/ de Oracle
+  - http://download.oracle.com/otn/linux/oracle11g/xe/oracle-xe-11.2.0-1.0.x86_64.rpm.zip
