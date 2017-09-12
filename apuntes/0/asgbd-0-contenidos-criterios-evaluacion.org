@@ -67,9 +67,10 @@
   - Puntualidad, interés, preguntas al profesor, puesta en común de resultados, comportamiento...
 - Exámenes
   - Dos parciales y un final por evaluación
-  - Se necesita un mínimo de 3,5 en cada parcial para hacer media
+  - Se necesita un mínimo de *3,5* en cada parcial para hacer media
 - Entrega de trabajos
   - Individuales
+  - Un trabajo entregado tarde puntua como máximo *6*
 
 ** Cálculo de la nota
 - Nota de la evaluación
@@ -405,61 +406,77 @@ La mayor de:
 * Contenidos básicos
 - Incluídos solo como referencia
 - No son aplicables en la Comunidad de Madrid
-** Instalación y configuración de un sistema gestor de base de datos:
-- Funciones del sistema gestor de base de datos (SGBD). Componentes. Tipos.
-- Arquitectura del sistema gestor de base de datos. Arquitectura ANSI/SPARC.
-- Sistemas gestores de base de datos comerciales y libres.
-- Instalación y configuración de un SGBD. Parámetros relevantes.
-- Instalación de un SGBD de dos capas.
-- Configuración de los parámetros relevantes.
-- Estructura del diccionario de datos.
-- Ficheros LOG.
-** Acceso a la información:
-- Creación, modificación y eliminación de vistas.
-- Creación y eliminación de usuarios.
-- Asignación y desasignación de derechos a usuarios. Puntos de acceso al sistema.
-- Definición de roles. Asignación y desasignación de roles a usuarios.
-- Normativa legal vigente sobre protección de datos.
-** Automatización de tareas: construcción de guiones de administración:
-- Herramientas para creación de guiones; procedimientos de ejecución.
-- Planificación de tareas de administración mediante guiones.
-- Eventos.
-- Disparadores.
-- Excepciones.
-** Optimización del rendimiento: monitorización y optimización:
-- Herramientas de monitorización disponibles en el sistema gestor.
-- Elementos y parámetros susceptibles de ser monitorizados.
-- Optimización.
-- Herramientas y sentencias para la gestión de índices.
-- Herramientas para la creación de alertas de rendimiento.
-** Aplicación de criterios de disponibilidad a bases de datos distribuidas y replicadas:
-- Bases de datos distribuidas.
-- Tipos de SGBD distribuidos.
-- Componentes de un SGBD distribuido.
-- Técnicas de fragmentación.
-- Técnicas de asignación.
-- Consulta distribuida.
-- Transacciones distribuidas.
-- Optimización de consultas sobre bases de datos distribuidas.
-- Replicación.
-- Configuración del «nodo maestro» y los «nodos esclavos».
+
+** Caracterización de redes:
+−  Terminología: redes LAN, MAN y WAN, topologías, arquitecturas, protocolos.
+−  Sistemas de numeración decimal, binario y hexadecimal. Conversión entre sistemas.
+−  Arquitectura de redes.
+−  Encapsulamiento de la información.
+−  El modelo OSI.
+−  El modelo TCP/IP.
+−  Las tecnologías /Ethernet/.
+−  El modelo OSI y /Ethernet/.
+−  Tipos de cableado /Ethernet/.
+** Integración de elementos en una red:
+−  Los medios físicos.
+−  Ancho de banda y tasa de transferencia.
+−  Los cables metálicos (coaxial, STP y UTP).
+−  Factores físicos que afectan a la transmisión.
+−  La conexión inalámbrica. Los espectros de onda de microondas y radio. Topologías.
+** Asociación y autenticación en la WLAN.
+−  Direccionamiento.
+−  Dominios de colisión y de /broadcast/.
+−  Direcciones IPv4 y máscaras de red.
+−  Direccionamiento dinámico (DHCP).
+−  Adaptadores.
+−  Adaptadores alámbricos: instalación y configuración.
+−  Adaptadores inalámbricos: instalación y configuración.
+** Configuración y administración de conmutadores:
+−  Segmentación de la red. Ventajas que presenta.
+−  Conmutadores y dominios de colisión y /broadcast/.
+−  Segmentación de redes.
+−  Formas de conexión al conmutador para su configuración.
+−  Configuración del conmutador.
+−  Configuración estática y dinámica de la tabla de direcciones MAC.
+** Configuración y administración básica de /routers/:
+−  Los /routers/ en las LAN y en las WAN.
+−  Componentes del /router/.
+−  Formas de conexión al /router/ para su configuración inicial.
+−  Comandos para configuración del /router/.
+−  Comandos para administración del /router/.
+−  Configuración del enrutamiento estático.
+−  Definición y ubicación de listas de control de acceso (ACLs).
+** Configuración de redes virtuales:
+−  El diseño de redes locales a tres capas (núcleo, distribución y acceso).
+−  Implantación y configuración de redes virtuales.
+−  Definición de enlaces troncales en los conmutadores y /routers/. El protocolo IEEE802.1Q.
+** Configuración y administración de protocolos dinámicos:
+−  Protocolos enrutables y protocolos de enrutamiento.
+−  Protocolos de enrutamiento interior y exterior.
+−  El enrutamiento sin clase.
+−  La subdivisión de redes y el uso de máscaras de longitud variable (VLMs).
+−  El protocolo RIPv2; comparación con RIPv1.
+−  Configuración y administración de RIPv1.
+−  Configuración y administración de RIPv2.
+** Configuración del acceso a Internet desde una LAN:
+−  Direccionamiento interno y direccionamiento externo.
+−  NAT origen y NAT destino.
+−  NAT estático, dinámico, de sobrecarga (PAT) e inverso.
+−  Configuración de NAT.
+−  Diagnóstico de incidencias de NAT.
+−  Configuración de PAT.
+
+
+
 * Orientaciones pedagógicas.                   :noexport:
-Este módulo profesional contiene la formación necesaria para desempeñar la función de administrar sistemas gestores de bases de datos.
-La administración de sistemas gestores de base de datos incluye aspectos como:
-- La implantación de sistemas gestores de bases de datos.
-- La manipulación de bases de datos.
-- La aplicación de medidas de seguridad.
-- La planificación y realización de tareas administrativas.
-- La monitorización y optimización de la base de datos y del sistema gestor de base de datos.
-#+REVEAL: split
-Las actividades profesionales asociadas a esta función se aplican en:
-- La implantación y administración de sistemas gestores de base de datos.
-- La implantación y administración de bases de datos.
-#+REVEAL: split
-Las líneas de actuación en el proceso de enseñanza-aprendizaje que permiten alcanzar
-los objetivos del módulo versarán sobre:
-- La instalación y configuración de sistemas gestores de base de datos.
-- La manipulación de base de datos.
-- La realización de operaciones con bases de datos.
-- La administración de bases de datos.
-- La planificación y automatización de tareas en un sistema gestor.
+
+
+Este módulo profesional contiene la formación necesaria para desempeñar la función de conectar ordenadores, dispositivos y electrónica de red en una red de área local. La definición de estas funciones incluye aspectos como:
+−  El diseño de la estructura de una red local, identificando los elementos que deben integrarla.
+−  El conexionado y configuración de los elementos de la red local.
+−  La monitorización de la red local.
+−  La resolución de incidencias físicas y lógicas de la red local.
+−  La creación de redes virtuales.
+−  La conexión de la red local a una red de área extensa.
+
+
